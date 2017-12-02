@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">GameOn</string>
+    <string name="app_name">Game On</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="check_in_out_button">Check In / Check Out Equipment</string>
+    <string name="request_equipment_button">Request Equipment</string>
+    <string name="damage_report_button">Equipment Damage Report</string>
+    <string name="options_button">Files and Options</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="check_in">Check-in</string>
+    <string name="check_out">Check-out</string>
+    <string name="default_text_input">Input Text Here</string>
+    <string name="requester">Requester : </string>
+    <string name="id_title">Item ID : </string>
+    <string name="scan">Scan Barcode</string>
 </resources>
