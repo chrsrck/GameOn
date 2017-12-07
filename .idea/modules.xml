@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GameOn.iml" filepath="$PROJECT_DIR$/GameOn.iml" />
-      <module fileurl="file://C:\Users\Patrick Folena\AndroidStudioProjects\GameOn\GameOn.iml" filepath="C:\Users\Patrick Folena\AndroidStudioProjects\GameOn\GameOn.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Patrick Folena\AndroidStudioProjects\GameOn\app\app.iml" filepath="C:\Users\Patrick Folena\AndroidStudioProjects\GameOn\app\app.iml" />
     </modules>
   </component>
 </project>
