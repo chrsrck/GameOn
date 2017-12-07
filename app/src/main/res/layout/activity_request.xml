@@ -6,14 +6,195 @@
     android:layout_height="match_parent"
     tools:context="com.chrsrck.gameon.RequestActivity">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/request_equipment_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/r_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/request_equipment_button"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/rDivLineA"
+                android:layout_width="384dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/r_Title"
+                app:srcCompat="@android:color/black" />
+
+            <TextView
+                android:id="@+id/r_RequesterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/requester"
+                app:layout_constraintBottom_toBottomOf="@+id/r_RequesterTextField"
+                app:layout_constraintEnd_toStartOf="@+id/r_RequesterTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/r_RequesterTextField"
+                app:layout_constraintVertical_bias="0.315" />
+
+            <EditText
+                android:id="@+id/r_RequesterTextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:hint="@string/default_text_input"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/r_RequesterTitle"
+                app:layout_constraintTop_toBottomOf="@+id/rDivLineA" />
+
+            <TextView
+                android:id="@+id/r_ItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/item"
+                app:layout_constraintBottom_toBottomOf="@+id/r_ItemTextField"
+                app:layout_constraintEnd_toStartOf="@+id/r_ItemTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/r_ItemTextField" />
+
+            <EditText
+                android:id="@+id/r_ItemTextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:hint="@string/default_text_input"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/r_ItemTitle"
+                app:layout_constraintTop_toBottomOf="@+id/r_RequesterTextField" />
+
+            <TextView
+                android:id="@+id/r_QuantityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/num"
+                app:layout_constraintBottom_toBottomOf="@+id/r_QuantityTextField"
+                app:layout_constraintEnd_toStartOf="@+id/r_QuantityTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/r_QuantityTextField" />
+
+            <EditText
+                android:id="@+id/r_QuantityTextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:hint="@string/default_text_input"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/r_QuantityTitle"
+                app:layout_constraintTop_toBottomOf="@+id/r_ItemTextField" />
+
+            <TextView
+                android:id="@+id/r_LocationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/loc"
+                app:layout_constraintBottom_toBottomOf="@+id/r_LocationTextField"
+                app:layout_constraintEnd_toStartOf="@+id/r_LocationTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/r_LocationTextField" />
+
+            <EditText
+                android:id="@+id/r_LocationTextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:hint="@string/default_text_input"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/r_LocationTitle"
+                app:layout_constraintTop_toBottomOf="@+id/r_QuantityTextField" />
+
+            <TextView
+                android:id="@+id/r_SpRequestTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/spec"
+                app:layout_constraintEnd_toStartOf="@+id/r_SpRequestTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/r_SpRequestTextField" />
+
+            <EditText
+                android:id="@+id/r_SpRequestTextField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:gravity="top|start"
+                android:hint="@string/default_text_input"
+                android:inputType="textMultiLine"
+                android:scrollHorizontally="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/r_SpRequestTitle"
+                app:layout_constraintTop_toBottomOf="@+id/r_LocationTextField" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/submitRequest"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/r_SpRequestTextField"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

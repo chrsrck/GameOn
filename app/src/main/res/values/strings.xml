@@ -9,7 +9,18 @@
     <string name="check_in">Check-in</string>
     <string name="check_out">Check-out</string>
     <string name="default_text_input">Input Text Here</string>
-    <string name="requester">Requester : </string>
-    <string name="id_title">Item ID : </string>
+    <string name="requester">Requester:\t</string>
+    <string name="id_title">Item ID: </string>
     <string name="scan">Scan Barcode</string>
+
+    <string name="take_pic">Take a Picture</string>
+    <string name="reporter">Reporter:</string>
+    <string name="description">Description / Additional Information</string>
+    <string name="submit">Submit Report</string>
+
+    <string name="item">Item:\t\t\t\t</string>
+    <string name="num">Quantity:\t\t</string>
+    <string name="loc">Location:\t\t</string>
+    <string name="spec">Special \nRequests:\t</string>
+    <string name="submitRequest">Submit Request</string>
 </resources>

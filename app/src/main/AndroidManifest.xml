@@ -16,10 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CheckActivity" />
-        <activity android:name=".DamageActivity" />
-        <activity android:name=".RequestActivity" />
-        <activity android:name=".OptionsActivity"></activity>
+
+        <activity android:name=".CheckActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".DamageActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".RequestActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".OptionsActivity"
+            android:windowSoftInputMode="stateHidden"/>
 
         <service
             android:name=".GameOnFirebaseInstanceIDService">
