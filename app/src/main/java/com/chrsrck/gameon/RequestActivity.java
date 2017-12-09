@@ -58,8 +58,7 @@ public class RequestActivity extends AppCompatActivity {
 //            newPost.child("content").setValue(requester);
 //            mGameOnDatabase.addToMessageDatabase(requester);
 
-            mGameOnDatabase.addToRequestDatabase(requester, item, 0,
-                    Integer.parseInt(quantity), location, request);
+            mGameOnDatabase.addToRequestDatabase(requester, item, 0, location, request, "DEC 09 2017");
 //            mGameOnDatabase.triggerNotification();
         }
 

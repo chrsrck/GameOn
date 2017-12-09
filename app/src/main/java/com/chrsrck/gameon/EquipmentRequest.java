@@ -9,21 +9,21 @@ public class EquipmentRequest {
     private String requester;
     private String item;
     private int quantity;
-    private int idNum;
     private String location;
     private String specialRequest;
+    private String time;
 
     public EquipmentRequest() {
 
     }
 
-    public EquipmentRequest(String requester, String item, int idNum, int quantity, String location, String specialRequest) {
+    public EquipmentRequest(String requester, String item, int quantity, String location, String specialRequest, String time) {
         this.requester = requester;
         this.item = item;
-        this.idNum = idNum;
         this.quantity = quantity;
         this.location = location;
         this.specialRequest = specialRequest;
+        this.time = time;
     }
 
     public String getRequester() {
@@ -66,11 +66,5 @@ public class EquipmentRequest {
         this.specialRequest = specialRequest;
     }
 
-    public int getIdNum() {
-        return idNum;
-    }
 
-    public void setIdNum(int idNum) {
-        this.idNum = idNum;
-    }
 }
