@@ -9,19 +9,36 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class RequestActivity extends AppCompatActivity {
 
-    private DatabaseReference messageDatabase;
+    private GameOnDatabase mGameOnDatabase;
+
     private EditText requesterText;
-    private Button requestButton;
+    private EditText itemText;
+    private EditText quantityText;
+    private EditText locationText;
+    private EditText specialText;
+//    private Button requestButton;
+
+    private static final String SENDER_ID = "94891811642"; // DO NOT CHANGE
+    private AtomicInteger msgId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
         requesterText = (EditText) findViewById(R.id.r_RequesterTextField);
-        requestButton = (Button) findViewById(R.id.requestButton);
-        messageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages");
+        itemText = (EditText) findViewById(R.id.r_ItemTextField);
+        quantityText = (EditText) findViewById(R.id.r_QuantityTextField);
+        locationText = (EditText) findViewById(R.id.r_LocationTextField);
+        specialText = (EditText) findViewById(R.id.r_SpRequestTextField);
+
+
+//        requestButton = (Button) findViewById(R.id.requestButton);
+        mGameOnDatabase = new GameOnDatabase(this);
     }
 
 
@@ -31,10 +48,20 @@ public class RequestActivity extends AppCompatActivity {
 
          */
         String requester = requesterText.getText().toString().trim();
+        String item = itemText.getText().toString().trim();
+        String quantity = quantityText.getText().toString().trim();
+        String location = locationText.getText().toString().trim();
+        String request = specialText.getText().toString().trim();
         if (!requester.isEmpty()) {
-            final DatabaseReference newPost = messageDatabase.push();
-            // add value event listeners
-            newPost.child("content").setValue(requester);
+//            final DatabaseReference newPost = messageDatabase.push();
+////             add value event listeners
+//            newPost.child("content").setValue(requester);
+//            mGameOnDatabase.addToMessageDatabase(requester);
+
+            mGameOnDatabase.addToRequestDatabase(requester, item, 0, location, request, "DEC 09 2017");
+//            mGameOnDatabase.triggerNotification();
         }
+
+
     }
 }
