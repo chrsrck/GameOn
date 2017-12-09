@@ -60,6 +60,11 @@ public class GameOnDatabase {
 
     }
 
+    public void removeFromRequestDatabase(int idNum) {
+        String requestKey = Integer.toString(idNum);
+        requestDatabase.child(requestKey).removeValue();
+    }
+
 //    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
     public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
         Equipment equipment = new Equipment(idNum, isBroken, reporter, description);
