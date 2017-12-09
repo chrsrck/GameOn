@@ -66,21 +66,24 @@ public class GameOnDatabase {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "On data change called");
 
-                int notificationId = 1;
-                Intent viewIntent = new Intent(mContext, MainActivity.class);
-                PendingIntent viewPendingIntent = PendingIntent.getActivity(mContext, 0, viewIntent, 0);
-                NotificationCompat.Builder notificationBuilder =
-                        (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setContentTitle("Game On!")
-                                .setContentText("First notification")
-                                .setContentIntent(viewPendingIntent)
-                                .setVibrate(new long[] {1000, 1000});
+                if (dataSnapshot.exists() && (long) dataSnapshot.getValue() == 1) {
+                    int notificationId = 1;
+                    Intent viewIntent = new Intent(mContext, MainActivity.class);
+                    PendingIntent viewPendingIntent = PendingIntent.getActivity(mContext, 0, viewIntent, 0);
+                    NotificationCompat.Builder notificationBuilder =
+                            (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setContentTitle("Game On!")
+                                    .setContentText("First notification")
+                                    .setContentIntent(viewPendingIntent)
+                                    .setVibrate(new long[]{1000, 1000});
 
-                NotificationManagerCompat notificationManagerCompat =
-                        NotificationManagerCompat.from(mContext);
+                    NotificationManagerCompat notificationManagerCompat =
+                            NotificationManagerCompat.from(mContext);
 
-                notificationManagerCompat.notify(notificationId, notificationBuilder.build());
+                    notificationManagerCompat.notify(notificationId, notificationBuilder.build());
+
+                }
             }
 
             @Override
