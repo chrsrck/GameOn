@@ -8,8 +8,7 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
+
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -61,7 +60,7 @@ public class RequestActivity extends AppCompatActivity {
 
             mGameOnDatabase.addToRequestDatabase(requester, item, 0,
                     Integer.parseInt(quantity), location, request);
-            mGameOnDatabase.triggerNotification();
+//            mGameOnDatabase.triggerNotification();
         }
 
 
