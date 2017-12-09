@@ -83,6 +83,7 @@ public class GameOnDatabase {
 
                     notificationManagerCompat.notify(notificationId, notificationBuilder.build());
 
+                    notificationFlag.setValue(0);
                 }
             }
 
