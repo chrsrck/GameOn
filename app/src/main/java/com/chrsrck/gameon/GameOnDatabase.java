@@ -27,6 +27,8 @@ public class GameOnDatabase {
     private ValueEventListener notificationListener;
     private Context mContext;
 
+    private int idAdder;
+
     public GameOnDatabase(Context context) {
 //        messageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages");
         equipmentDatabase = FirebaseDatabase.getInstance().getReference().child("Inventory");
@@ -34,6 +36,7 @@ public class GameOnDatabase {
         notificationFlag = FirebaseDatabase.getInstance().getReference().child("NotificationFlag");
         notificationFlag.setValue(0);
         mContext = context;
+        idAdder = 0;
         setupNotifcation();
     }
 
@@ -46,17 +49,23 @@ public class GameOnDatabase {
 //
 //    }
 
-    public void addToRequestDatabase(String requester, String item, int quantity, String location, String specialRequest) {
-        EquipmentRequest equipmentRequest = new EquipmentRequest(requester, item, quantity, location, specialRequest);
-        String key = requestDatabase.push().getKey();
-        requestDatabase.child(key).setValue(equipmentRequest);
+    public void addToRequestDatabase(String requester, String item, int idNum, int quantity, String location, String specialRequest) {
+        EquipmentRequest equipmentRequest = new EquipmentRequest(requester, item, idNum, quantity, location, specialRequest);
+//        String key = requestDatabase.push().getKey();
+//        requestDatabase.child(key).setValue(equipmentRequest);
+        String idNumKey = Integer.toString(idNum + idAdder);
+        DatabaseReference requestRef = requestDatabase.child(idNumKey).push();
+        requestRef.setValue(equipmentRequest);
+        idAdder++;
+
     }
 
 //    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
     public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
         Equipment equipment = new Equipment(idNum, isBroken, reporter, description);
-        String key = equipmentDatabase.push().getKey();
-        equipmentDatabase.child(key).setValue(equipment);
+//        String key = equipmentDatabase.push().getKey();
+        DatabaseReference inventoryItem = equipmentDatabase.child(Integer.toString(idNum));
+        inventoryItem.setValue(equipment);
     }
 
     public void setupNotifcation() {

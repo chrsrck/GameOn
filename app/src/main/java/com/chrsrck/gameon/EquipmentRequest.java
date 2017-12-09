@@ -9,6 +9,7 @@ public class EquipmentRequest {
     private String requester;
     private String item;
     private int quantity;
+    private int idNum;
     private String location;
     private String specialRequest;
 
@@ -16,9 +17,10 @@ public class EquipmentRequest {
 
     }
 
-    public EquipmentRequest(String requester, String item, int quantity, String location, String specialRequest) {
+    public EquipmentRequest(String requester, String item, int idNum, int quantity, String location, String specialRequest) {
         this.requester = requester;
         this.item = item;
+        this.idNum = idNum;
         this.quantity = quantity;
         this.location = location;
         this.specialRequest = specialRequest;
@@ -62,5 +64,13 @@ public class EquipmentRequest {
 
     public void setSpecialRequest(String specialRequest) {
         this.specialRequest = specialRequest;
+    }
+
+    public int getIdNum() {
+        return idNum;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
     }
 }
