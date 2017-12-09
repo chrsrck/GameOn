@@ -39,9 +39,7 @@ public class RequestActivity extends AppCompatActivity {
 
 
 //        requestButton = (Button) findViewById(R.id.requestButton);
-        mGameOnDatabase = new GameOnDatabase();
-
-
+        mGameOnDatabase = new GameOnDatabase(this);
     }
 
 
@@ -55,14 +53,15 @@ public class RequestActivity extends AppCompatActivity {
         String quantity = quantityText.getText().toString().trim();
         String location = locationText.getText().toString().trim();
         String request = specialText.getText().toString().trim();
-
         if (!requester.isEmpty()) {
 //            final DatabaseReference newPost = messageDatabase.push();
 ////             add value event listeners
 //            newPost.child("content").setValue(requester);
 //            mGameOnDatabase.addToMessageDatabase(requester);
-            mGameOnDatabase.addToEquipmentDatabase(requester, item,
+
+            mGameOnDatabase.addToRequestDatabase(requester, item,
                     Integer.parseInt(quantity), location, request);
+            mGameOnDatabase.triggerNotification();
         }
 
 
