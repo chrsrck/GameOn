@@ -6,22 +6,25 @@ package com.chrsrck.gameon;
 
 public class Equipment {
 
-    private int idNum;
 //    private String sport;
 //    private String name;
+    /*
+    Stuff needed for Equipment Damage Report
+     */
+    private int idNum;
+    private boolean isBroken;
     private String reporter;
     private String description;
-    private boolean isBroken;
 
 
     public Equipment() {
-        idNum = -1;
-        reporter = "None";
-        description = "None";
-        isBroken = false;
+//        idNum = -1;
+//        reporter = "None";
+//        description = "None";
+//        isBroken = false;
     }
 
-    public Equipment(int idNum, String reporter, String description, boolean isBroken) {
+    public Equipment(int idNum, boolean isBroken, String reporter, String description) {
         this.idNum = idNum;
         this.reporter = reporter;
         this.description = description;
