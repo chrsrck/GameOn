@@ -4,7 +4,7 @@
     <string name="check_in_out_button">Check In / Check Out Equipment</string>
     <string name="request_equipment_button">Request Equipment</string>
     <string name="damage_report_button">Equipment Damage Report</string>
-    <string name="options_button">Files and Options</string>
+    <string name="review_button">View Requests</string>
 
     <string name="check_in">Check-in</string>
     <string name="check_out">Check-out</string>

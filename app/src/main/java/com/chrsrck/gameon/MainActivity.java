@@ -1,89 +1,55 @@
 package com.chrsrck.gameon;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.view.WindowManager;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
-import static android.content.ContentValues.TAG;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-public class MainActivity extends AppCompatActivity {
-
-    private FirebaseAuth mAuth;
+    EditText email;
+    EditText pw;
+    Button login;
+    ImageView icon;
+    public static final String USERNAME = "name";
+    public static final String PASSWORD = "pw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
+
+        email = findViewById(R.id.email_field);
+        pw = findViewById(R.id.pw_field);
+        login = findViewById(R.id.login);
+        login.setOnClickListener(this);
+        icon = findViewById(R.id.icon);
+        Picasso.with(this).load("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png").into(icon);
+        icon.setVisibility(View.VISIBLE);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
     }
 
-    public void changeScreens(View view) {
-        Intent intent;
-        switch (view.getId()){
-            case R.id.Check:
-                intent = new Intent(this, CheckActivity.class);
-                break;
-            case R.id.Request:
-                intent = new Intent(this, RequestActivity.class);
-                break;
-            case R.id.Damage:
-                intent = new Intent(this, DamageActivity.class);
-                break;
-            case R.id.Options:
-                intent = new Intent(this, OptionsActivity.class);
-                break;
-            default:
-                intent = null;
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == login.getId()) {
+            String emailText = email.getText().toString().trim();
+            String pwText = pw.getText().toString().trim();
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra(USERNAME, emailText);
+            intent.putExtra(PASSWORD, pwText);
+            startActivity(intent);
         }
-        startActivity(intent);
     }
-
-//    // TODO: Move this to a login activity
-//    private void updateUI(FirebaseUser user) {
-//
-//    }
-//
-//    private void createAccount() {
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//
-//                        // ...
-//                    }
-//                });
-//    }
 }

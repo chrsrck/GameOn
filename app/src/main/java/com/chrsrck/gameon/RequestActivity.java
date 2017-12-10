@@ -20,7 +20,6 @@ public class RequestActivity extends AppCompatActivity {
     private EditText itemText;
     private EditText quantityText;
     private EditText locationText;
-    private EditText specialText;
 //    private Button requestButton;
 
     private static final String SENDER_ID = "94891811642"; // DO NOT CHANGE
@@ -34,7 +33,6 @@ public class RequestActivity extends AppCompatActivity {
         itemText = (EditText) findViewById(R.id.r_ItemTextField);
         quantityText = (EditText) findViewById(R.id.r_QuantityTextField);
         locationText = (EditText) findViewById(R.id.r_LocationTextField);
-        specialText = (EditText) findViewById(R.id.r_SpRequestTextField);
 
 
 //        requestButton = (Button) findViewById(R.id.requestButton);
@@ -51,7 +49,7 @@ public class RequestActivity extends AppCompatActivity {
         String item = itemText.getText().toString().trim();
         String quantity = quantityText.getText().toString().trim();
         String location = locationText.getText().toString().trim();
-        String request = specialText.getText().toString().trim();
+        String request = "";
         if (!requester.isEmpty()) {
 //            final DatabaseReference newPost = messageDatabase.push();
 ////             add value event listeners

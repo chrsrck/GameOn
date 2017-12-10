@@ -4,189 +4,183 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chrsrck.gameon.CheckActivity">
+    tools:context="com.chrsrck.gameon.CheckActivity"
+    android:background="#000000">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/check_in_out_button"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/DivLineCA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/DivLineCA"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:contentDescription="@null"
-        app:layout_constraintBottom_toTopOf="@id/checkInOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:srcCompat="@android:color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <RadioGroup
-        android:id="@+id/checkInOut"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/DivLineCB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DivLineCA">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:text="@string/check_in_out_button"
+                android:textAlignment="center"
+                android:textSize="24dp"
+                android:textColor="#FFFFFF"/>
 
-        <RadioButton
-            android:id="@+id/checkIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="false"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:text="@string/check_in"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/checkIn"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="20dp"
+                android:background="#FFFFFF"/>
 
-        <RadioButton
-            android:id="@+id/checkOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="false"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:text="@string/check_in"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/checkIn"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            <RadioGroup
+                android:id="@+id/checkInOut"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/checkIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:textColor="#FFFFFF"
+                    android:drawableBottom="@android:drawable/btn_radio"
+                    android:text="@string/check_in"
+                    android:textAlignment="center"/>
 
-    <ImageView
-        android:id="@+id/DivLineCB"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@null"
-        app:layout_constraintBottom_toTopOf="@id/inputRequesterTextField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkInOut"
-        app:srcCompat="@android:color/black" />
+                <RadioButton
+                    android:id="@+id/checkOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:textColor="#FFFFFF"
+                    android:drawableBottom="@android:drawable/btn_radio"
+                    android:text="@string/check_out"
+                    android:textAlignment="center"/>
 
-    <TextView
-        android:id="@+id/inputRequesterTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:labelFor="@+id/inputRequesterTextField"
-        android:text="@string/requester"
-        app:layout_constraintBottom_toBottomOf="@+id/inputRequesterTextField"
-        app:layout_constraintEnd_toStartOf="@+id/inputRequesterTextField"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/inputRequesterTextField" />
+            </RadioGroup>
 
-    <EditText
-        android:id="@+id/inputRequesterTextField"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:drawable/editbox_background"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/default_text_input"
-        app:layout_constraintBottom_toTopOf="@id/DivLineCC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/inputRequesterTitle"
-        app:layout_constraintTop_toBottomOf="@+id/DivLineCB"
-        app:layout_constraintVertical_chainStyle="spread" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#FFFFFF"/>
 
-    <ImageView
-        android:id="@+id/DivLineCC"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@null"
-        app:layout_constraintBottom_toTopOf="@id/scanCode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputRequesterTextField"
-        app:srcCompat="@android:color/black" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/inputRequesterTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="@string/requester"
+                        android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/inputSerialTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:labelFor="@+id/inputSerialTextField"
-        android:text="@string/id_title"
-        app:layout_constraintBottom_toBottomOf="@+id/scanCode"
-        app:layout_constraintEnd_toStartOf="@+id/scanCode"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scanCode" />
+                    <EditText
+                        android:id="@+id/inputReporterTextField"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="6"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@android:drawable/editbox_background"/>
+                </TableRow>
+                <TableRow>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_weight="7"
+                        android:background="#FFFFFF"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/inputSerialTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/id_title"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/scanCode"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/scan"
-        app:layout_constraintBottom_toTopOf="@id/inputSerialTextField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/inputSerialTitle"
-        app:layout_constraintTop_toBottomOf="@+id/DivLineCC" />
+                    <EditText
+                        android:id="@+id/inputSerialTextField"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="6"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@android:drawable/editbox_background"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Quantity:"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#FFFFFF" />
 
-    <EditText
-        android:id="@+id/inputSerialTextField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:drawable/editbox_background"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:labelFor="@+id/inputSerialTitle"
-        android:text="@string/default_text_input"
-        app:layout_constraintBottom_toTopOf="@id/checkInOutButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scanCode" />
+                    <EditText
+                        android:id="@+id/inputQuantity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="6"
+                        android:inputType="number"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:drawable/editbox_background"/>
+                </TableRow>
+            </TableLayout>
 
-    <Button
-        android:id="@+id/checkInOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/check_in_out_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputSerialTextField" />
+            <Button
+                android:id="@+id/scanCode"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:background="@drawable/button_border"
+                android:layout_marginBottom="20dp"
+                android:text="@string/scan" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_weight="7"
+                android:layout_marginBottom="20dp"
+                android:background="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/checkInOutButton"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAllCaps="false"
+                android:layout_marginBottom="16dp"
+                android:textColor="#FFFFFF"
+                android:text="@string/check_in_out_button"
+                android:background="@drawable/button_border"/>
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
