@@ -16,6 +16,7 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
     RadioButton checkin;
     RadioButton checkout;
     EditText requester;
+    EditText location;
     EditText itemId;
     EditText quantity;
     Button barcode;
@@ -28,6 +29,7 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
         checkin = findViewById(R.id.checkIn);
         checkout = findViewById(R.id.checkOut);
         requester = findViewById(R.id.inputReporterTextField);
+        location = findViewById(R.id.inputLocation);
         itemId = findViewById(R.id.inputSerialTextField);
         quantity = findViewById(R.id.inputQuantity);
         barcode = findViewById(R.id.scanCode);
@@ -45,6 +47,7 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
         }
         else if (view.getId() == complete.getId()) {
             String name = requester.getText().toString().trim();
+            String loc = location.getText().toString().trim();
             String item = itemId.getText().toString().trim();
             //int quant = Integer.parseInt(quantity.getText().toString().trim());
             //check which radio button is clicked
