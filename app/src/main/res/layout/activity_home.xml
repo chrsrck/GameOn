@@ -13,59 +13,77 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical|center_horizontal">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/Check"
-                    android:layout_width="275dp"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center"
-                    android:text="@string/check_in_out_button"
-                    android:textAllCaps="false"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border"/>
+                    <Button
+                        android:id="@+id/Check"
+                        android:layout_width="275dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:text="@string/check_in_out_button"
+                        android:textAllCaps="false"
+                        android:textSize="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border"/>
 
-                <Button
-                    android:id="@+id/Request"
-                    android:layout_width="275dp"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center"
-                    android:textAllCaps="false"
-                    android:text="@string/request_equipment_button"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border"/>
+                    <Button
+                        android:id="@+id/Request"
+                        android:layout_width="275dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:textAllCaps="false"
+                        android:text="@string/request_equipment_button"
+                        android:textSize="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border"/>
 
-                <Button
-                    android:id="@+id/Damage"
-                    android:layout_width="275dp"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center"
-                    android:textAllCaps="false"
-                    android:text="@string/damage_report_button"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border"/>
+                    <Button
+                        android:id="@+id/Damage"
+                        android:layout_width="275dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:textAllCaps="false"
+                        android:text="@string/damage_report_button"
+                        android:textSize="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border"/>
 
-                <Button
-                    android:id="@+id/Options"
-                    android:layout_width="275dp"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center"
-                    android:textAllCaps="false"
-                    android:text="@string/review_button"
-                    android:textSize="20dp"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_border"/>
+                    <Button
+                        android:id="@+id/ViewRequest"
+                        android:layout_width="275dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:textAllCaps="false"
+                        android:text="@string/review_button"
+                        android:textSize="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border"/>
 
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/ViewReport"
+                        android:layout_width="275dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:textAllCaps="false"
+                        android:text="View Reports"
+                        android:textSize="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_border"/>
+
+                </LinearLayout>
+            </ScrollView>
 
         </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

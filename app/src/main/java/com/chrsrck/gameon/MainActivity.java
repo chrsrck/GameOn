@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText pw;
     Button login;
     ImageView icon;
-    public static final String USERNAME = "name";
-    public static final String PASSWORD = "pw";
+    public static String username;
+    public static String password;
+    public static int RequestMade = 0;
+    public static int DeleteMade = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == login.getId()) {
-            String emailText = email.getText().toString().trim();
-            String pwText = pw.getText().toString().trim();
+            username = email.getText().toString().trim();
+            password = pw.getText().toString().trim();
             Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra(USERNAME, emailText);
-            intent.putExtra(PASSWORD, pwText);
             startActivity(intent);
         }
     }

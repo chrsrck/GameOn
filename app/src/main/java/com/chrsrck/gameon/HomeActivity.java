@@ -11,29 +11,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     Button check;
     Button request;
     Button damage;
-    Button options;
+    Button viewrequests;
+    Button viewreports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Intent intent = getIntent();
-        String email = intent.getStringExtra(MainActivity.USERNAME);
-        String password = intent.getStringExtra(MainActivity.PASSWORD);
         check = findViewById(R.id.Check);
         request = findViewById(R.id.Request);
         damage = findViewById(R.id.Damage);
-        options = findViewById(R.id.Options);
+        viewrequests = findViewById(R.id.ViewRequest);
+        viewreports = findViewById(R.id.ViewReport);
         check.setOnClickListener(this);
         request.setOnClickListener(this);
         damage.setOnClickListener(this);
-        options.setOnClickListener(this);
+        viewreports.setOnClickListener(this);
+        viewrequests.setOnClickListener(this);
 
-        if (email.equals("1")) {
+        if (MainActivity.username.equals("1")) {
             check.setVisibility(View.GONE);
             damage.setVisibility(View.GONE);
+            viewreports.setVisibility(View.GONE);
         }
-        else if (email.equals("2")) {
+        else if (MainActivity.username.equals("2")) {
             request.setVisibility(View.GONE);
         }
     }
@@ -50,13 +51,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(this, CheckActivity.class);
         }
         else if (view.getId() == request.getId()) {
-            intent = new Intent(this, RequestActivity.class);
+            intent = new Intent(this, ChooseSportActivity.class);
         }
         else if (view.getId() == damage.getId()) {
             intent = new Intent(this, DamageActivity.class);
         }
+        else if (view.getId() == viewrequests.getId()) {
+            intent = new Intent(this, ViewRequests.class);
+        }
         else {
-            intent = new Intent(this, OptionsActivity.class);
+            intent = new Intent(this, ViewReports.class);
         }
         startActivity(intent);
     }
