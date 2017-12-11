@@ -62,6 +62,22 @@ public class GameOnDatabase {
         requestDatabase.child(requestKey).removeValue();
     }
 
+    public void checkoutEquipment(String idKey, String ownerName, String location) {
+        StringBuilder sd = new StringBuilder("SD-");
+        sd.append(idKey);
+        DatabaseReference item = requestDatabase.child(idKey).child("Item");
+        item.child("Owner").setValue(ownerName);
+        item.child("Location").setValue(location);
+    }
+
+    public void checkInEquipment(String idKey, String ownerName, String location) {
+        StringBuilder sd = new StringBuilder("SD-");
+        sd.append(idKey);
+        DatabaseReference item = requestDatabase.child(idKey).child("Item");
+        item.child("Owner").setValue("");
+        item.child("Location").setValue("");
+    }
+
 //    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
     public void addToEquipmentDatabase(int idNum, String itemName, String location, String owner, boolean isBroken, String reporter, String description) {
         DamageReport damageReport = new DamageReport();
