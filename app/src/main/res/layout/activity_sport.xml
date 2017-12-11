@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:text="Select a Sport"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow>
+                    <TextView
+                        android:textColor="#FFFFFF"
+                        android:text="Football"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/image_border"/>
+                    <TextView
+                        android:textColor="#FFFFFF"
+                        android:text="Soccer"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/image_border"/>
+                </TableRow>
+                <TableRow>
+                    <ImageButton
+                        android:layout_width="175dp"
+                        android:layout_height="175dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/football"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Football"
+                        android:background="@drawable/image_border" />
+                    <ImageButton
+                        android:layout_width="175dp"
+                        android:layout_height="175dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/soccer"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Soccer"
+                        android:background="@drawable/image_border" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:textColor="#FFFFFF"
+                        android:text="Softball"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/image_border"/>
+                    <TextView
+                        android:textColor="#FFFFFF"
+                        android:text="Ultimate Frisbee"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/image_border"/>
+                </TableRow>
+                <TableRow>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/softball"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Softball"
+                        android:background="@drawable/image_border" />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/frisbee"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Frisbee"
+                        android:background="@drawable/image_border" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:textColor="#FFFFFF"
+                        android:text="Kickball"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/image_border"/>
+                    <TextView
+                        android:textColor="#FFFFFF"
+                        android:text="General"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/image_border"/>
+                </TableRow>
+                <TableRow>
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/kickball"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Kickball"
+                        android:background="@drawable/image_border" />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/general"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="General"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/image_border" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
