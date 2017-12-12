@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.LinkedList;
+
 /**
  * Created by chrsrck on 12/8/17.
  */
@@ -25,6 +27,7 @@ public class GameOnDatabase {
     private DatabaseReference equipmentDatabase;
     private DatabaseReference requestDatabase;
     private ValueEventListener notificationListener;
+    private LinkedList<EquipmentRequest> requestList;
     public Context mContext;
 
 
@@ -34,8 +37,39 @@ public class GameOnDatabase {
         requestDatabase = FirebaseDatabase.getInstance().getReference().child("Requests");
         notificationFlag = FirebaseDatabase.getInstance().getReference().child("NotificationFlag");
         notificationFlag.setValue(0);
+        requestList = new LinkedList<EquipmentRequest>();
+        setupRequestListener();
         setupNotifcation();
     }
+
+    public LinkedList<EquipmentRequest> getAllRequests() {
+        return requestList;
+    }
+
+    public void setupRequestListener() {
+        requestDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot requestSnapshot : dataSnapshot.getChildren()) {
+                    if (requestSnapshot.getValue() != null) {
+                        String requester = (String )requestSnapshot.child("requester").getValue();
+                        String item = (String )requestSnapshot.child("item").getValue();
+                        long quantity = (long) requestSnapshot.child("quantity").getValue();
+                        String location = (String)requestSnapshot.child("location").getValue();
+                        String time = (String )requestSnapshot.child("time").getValue();
+                        EquipmentRequest request = new EquipmentRequest(requester, item, quantity, location, time);
+                        requestList.add(request);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     // used to test server functionality
 //    public void addToMessageDatabase(String contentStr) {
@@ -46,8 +80,8 @@ public class GameOnDatabase {
 //
 //    }
 
-    public void addToRequestDatabase(String requester, String item, int quantity, String location, String specialRequest, String time) {
-        EquipmentRequest equipmentRequest = new EquipmentRequest(requester, item, quantity, location, specialRequest, time);
+    public void addToRequestDatabase(String requester, String item, long quantity, String location, String time) {
+        EquipmentRequest equipmentRequest = new EquipmentRequest(requester, item, quantity, location, time);
 //        String key = requestDatabase.push().getKey();
 //        requestDatabase.child(key).setValue(equipmentRequest);
 //        String idNumKey = Integer.toString(idNum + idAdder);
@@ -102,7 +136,7 @@ public class GameOnDatabase {
                             (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
                                     .setSmallIcon(R.mipmap.logo)
                                     .setContentTitle("Game On!")
-                                    .setContentText("First notification")
+                                    .setContentText("You've received a new notification")
                                     .setContentIntent(viewPendingIntent)
                                     .setVibrate(new long[]{1000, 1000});
 

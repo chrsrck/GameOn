@@ -8,21 +8,20 @@ public class EquipmentRequest {
 
     private String requester;
     private String item;
-    private int quantity;
+    private long quantity;
     private String location;
-    private String specialRequest;
     private String time;
 
     public EquipmentRequest() {
 
     }
 
-    public EquipmentRequest(String requester, String item, int quantity, String location, String specialRequest, String time) {
+    public EquipmentRequest(String requester, String item, long quantity, String location, String time) {
         this.requester = requester;
         this.item = item;
         this.quantity = quantity;
         this.location = location;
-        this.specialRequest = specialRequest;
+
         this.time = time;
     }
 
@@ -42,7 +41,7 @@ public class EquipmentRequest {
         this.item = item;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
@@ -58,13 +57,6 @@ public class EquipmentRequest {
         this.location = location;
     }
 
-    public String getSpecialRequest() {
-        return specialRequest;
-    }
-
-    public void setSpecialRequest(String specialRequest) {
-        this.specialRequest = specialRequest;
-    }
 
 
 }

@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.LinkedList;
+
 public class ViewRequests extends AppCompatActivity implements View.OnClickListener{
     TextView t1;
     Button b1;
@@ -14,6 +18,8 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
     TableLayout l1;
     TableLayout l2;
     int count = 2;
+    private DatabaseReference mRequestsReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +48,12 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
             }
         }
         MainActivity.gameOnDatabase.mContext = this;
+        LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
     }
 
     @Override
     public void onClick(View view) {
+//        LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
         if (view.getId() == b1.getId()) {
             l1.setVisibility(View.GONE);
             count--;
