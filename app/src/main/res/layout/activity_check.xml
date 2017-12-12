@@ -146,29 +146,7 @@
                         android:layout_weight="6"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@android:drawable/editbox_background"/>
-                </TableRow>
-                <TableRow>
-                    <TextView
-                        android:id="@+id/quantity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Quantity:"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#FFFFFF" />
-
-                    <EditText
-                        android:id="@+id/inputQuantity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
-                        android:inputType="number"
-                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginTop="10dp"
                         android:background="@android:drawable/editbox_background"/>
                 </TableRow>
             </TableLayout>

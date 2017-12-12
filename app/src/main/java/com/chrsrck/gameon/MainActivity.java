@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         login = findViewById(R.id.login);
         login.setOnClickListener(this);
         icon = findViewById(R.id.icon);
-        Picasso.with(this).load("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png").into(icon);
-        icon.setVisibility(View.VISIBLE);
+        //Picasso.with(this).load("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png").into(icon);
+        //icon.setVisibility(View.VISIBLE);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }

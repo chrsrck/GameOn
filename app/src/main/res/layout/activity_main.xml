@@ -29,7 +29,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:id="@+id/icon"/>
+            android:id="@+id/icon"
+            android:background="@drawable/logo"/>
 
         <TableLayout
             android:layout_width="match_parent"
