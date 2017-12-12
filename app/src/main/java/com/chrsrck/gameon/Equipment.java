@@ -11,14 +11,15 @@ public class Equipment {
     /*
     Stuff needed for Equipment Damage Report
      */
-    private int idNum;
+    private long idNum;
     private String itemName;
     private String location;
     private String owner;
-    private boolean isBroken;
+
     private String reporter;
     private String description;
-    private DamageReport damageReport;
+    private long idNumReport;
+
 
 
     public Equipment() {
@@ -28,19 +29,20 @@ public class Equipment {
 //        isBroken = false;
     }
 
-    public Equipment(int idNum, String itemName, String location, String owner, boolean isBroken,
-                     String reporter, String description) {
+    public Equipment(long idNum, String itemName, String location, String owner,
+                     String reporter, String description, long idNumReport) {
+        // for the item
         this.idNum = idNum;
         this.itemName = itemName;
         this.location = location;
         this.owner = owner;
+        // for the damage report
         this.reporter = reporter;
         this.description = description;
-        this.isBroken = isBroken;
-        this.damageReport = new DamageReport(reporter, idNum, description);
+        this.idNumReport = idNumReport;
     }
 
-    public int getIdNum() {
+    public long getIdNum() {
         return idNum;
     }
 
@@ -64,13 +66,6 @@ public class Equipment {
         this.description = description;
     }
 
-    public boolean isBroken() {
-        return isBroken;
-    }
-
-    public void setBroken(boolean broken) {
-        isBroken = broken;
-    }
 
     public String getItemName() {
         return itemName;
@@ -96,20 +91,24 @@ public class Equipment {
         this.owner = owner;
     }
 
-    public DamageReport getDamageReport() {
-        return damageReport;
+    public void setIdNum(long idNum) {
+        this.idNum = idNum;
     }
 
-    public void setDamageReport(DamageReport damageReport) {
-        this.damageReport = damageReport;
+    public long getIdNumReport() {
+        return idNumReport;
+    }
+
+    public void setIdNumReport(long idNumReport) {
+        this.idNumReport = idNumReport;
     }
 
     /*
-        Used for when a piece of equipment is fixed
-         */
+            Used for when a piece of equipment is fixed
+             */
     public void resetEquipment() {
-        reporter = "None";
-        description = "None";
-        isBroken = false;
+        reporter = "";
+        description = "";
+        location = "";
     }
 }

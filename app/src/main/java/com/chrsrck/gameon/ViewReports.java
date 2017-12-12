@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.LinkedList;
+
 public class ViewReports extends AppCompatActivity implements View.OnClickListener {
 
     Button checked;
@@ -19,6 +21,8 @@ public class ViewReports extends AppCompatActivity implements View.OnClickListen
         checked.setOnClickListener(this);
         damage.setOnClickListener(this);
         MainActivity.gameOnDatabase.mContext = this;
+        LinkedList<Equipment> checkedOutEquipment = MainActivity.gameOnDatabase.getAllCheckedOutEquipment();
+        LinkedList<Equipment> brokenReports = MainActivity.gameOnDatabase.getAllBrokenReports();
     }
 
     @Override

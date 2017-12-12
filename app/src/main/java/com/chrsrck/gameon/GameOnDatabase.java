@@ -26,8 +26,12 @@ public class GameOnDatabase {
     private DatabaseReference notificationFlag;
     private DatabaseReference equipmentDatabase;
     private DatabaseReference requestDatabase;
+
     private ValueEventListener notificationListener;
     private LinkedList<EquipmentRequest> requestList;
+    private LinkedList<Equipment> checkedOutList;
+    private LinkedList<Equipment> brokenReportList;
+
     public Context mContext;
 
 
@@ -38,7 +42,10 @@ public class GameOnDatabase {
         notificationFlag = FirebaseDatabase.getInstance().getReference().child("NotificationFlag");
         notificationFlag.setValue(0);
         requestList = new LinkedList<EquipmentRequest>();
+        checkedOutList = new LinkedList<Equipment>();
+        brokenReportList = new LinkedList<Equipment>();
         setupRequestListener();
+        setupEquipmentListner();
         setupNotifcation();
     }
 
@@ -46,10 +53,15 @@ public class GameOnDatabase {
         return requestList;
     }
 
+    public LinkedList<Equipment> getAllCheckedOutEquipment() {return checkedOutList;}
+
+    public LinkedList<Equipment> getAllBrokenReports() {return brokenReportList;}
+
     public void setupRequestListener() {
         requestDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                requestList.clear();
                 for (DataSnapshot requestSnapshot : dataSnapshot.getChildren()) {
                     if (requestSnapshot.getValue() != null) {
                         String requester = (String )requestSnapshot.child("requester").getValue();
@@ -60,6 +72,8 @@ public class GameOnDatabase {
                         EquipmentRequest request = new EquipmentRequest(requester, item, quantity, location, time);
                         requestList.add(request);
                     }
+
+
                 }
             }
 
@@ -70,6 +84,53 @@ public class GameOnDatabase {
         });
     }
 
+    public void setupEquipmentListner() {
+        equipmentDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                checkedOutList.clear();
+                for (DataSnapshot equipSnapshot : dataSnapshot.getChildren()) {
+                    if (equipSnapshot.getValue() != null) {
+                        DataSnapshot itemSnapshot = equipSnapshot.child("Item");
+                        DataSnapshot brokenReportSnapshot = equipSnapshot.child("Broken Report");
+                        String location = "";
+                        String owner = "";
+                        String itemName = "";
+                        long idNum = -1;
+                        if (itemSnapshot.exists()) {
+                            location = (String) itemSnapshot.child("Location").getValue();
+                            owner = (String) itemSnapshot.child("Owner").getValue();
+                            itemName = (String) itemSnapshot.child("Name").getValue();
+                            idNum = (long) equipSnapshot.child("ID").getValue();
+                        }
+                        String description = "";
+                        String reporter = "";
+                        long idNumReport = -1;
+                        if (brokenReportSnapshot.exists()) {
+                            description = (String) brokenReportSnapshot.child("Description").getValue();
+                            reporter = (String) brokenReportSnapshot.child("Reporter").getValue();
+                            idNumReport = (long) equipSnapshot.child("Broken Report ID").getValue();
+                        }
+
+                        if (!location.equals("") && !owner.equals("")) {
+                            Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
+                            checkedOutList.add(equipment);
+                        }
+
+                        if (brokenReportSnapshot.exists() && idNumReport != -1 && !reporter.equals("") && !description.equals("")) {
+                            Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
+                            brokenReportList.add(equipment);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     // used to test server functionality
 //    public void addToMessageDatabase(String contentStr) {
@@ -112,13 +173,13 @@ public class GameOnDatabase {
     }
 
 //    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
-    public void addToEquipmentDatabase(int idNum, String itemName, String location, String owner, boolean isBroken, String reporter, String description) {
-        DamageReport damageReport = new DamageReport();
-        Equipment equipment = new Equipment(idNum, itemName, location, owner, isBroken, reporter, description);
-//        String key = equipmentDatabase.push().getKey();
-        DatabaseReference inventoryItem = equipmentDatabase.child(Integer.toString(idNum));
-        inventoryItem.setValue(equipment);
-    }
+//    public void addToEquipmentDatabase(int idNum, String itemName, String location, String owner, String reporter, String description) {
+//        DamageReport damageReport = new DamageReport();
+//        Equipment equipment = new Equipment(idNum, itemName, location, owner, isBroken, reporter, description);
+////        String key = equipmentDatabase.push().getKey();
+//        DatabaseReference inventoryItem = equipmentDatabase.child(Integer.toString(idNum));
+//        inventoryItem.setValue(equipment);
+//    }
 
     public void setupNotifcation() {
         Log.d(TAG, "Setup notification called");
