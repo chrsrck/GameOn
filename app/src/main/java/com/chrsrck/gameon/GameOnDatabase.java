@@ -88,6 +88,7 @@ public class GameOnDatabase {
 
     public void setupNotifcation() {
         Log.d(TAG, "Setup notification called");
+        // reset chris
         notificationFlag.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
