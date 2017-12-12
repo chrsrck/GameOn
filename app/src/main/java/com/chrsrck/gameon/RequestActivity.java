@@ -83,8 +83,8 @@ public class RequestActivity extends AppCompatActivity implements View.OnClickLi
 //            newPost.child("content").setValue(requester);
 //            mGameOnDatabase.addToMessageDatabase(requester);
 
-            //mGameOnDatabase.addToRequestDatabase(requester, item, 0, location, request, "DEC 09 2017");
-//            mGameOnDatabase.triggerNotification();
+             MainActivity.gameOnDatabase.addToRequestDatabase(requester, item, Integer.parseInt(quantity), location, request, "DEC 09 2017");
+             MainActivity.gameOnDatabase.triggerNotification();
         }
 
 

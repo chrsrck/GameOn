@@ -95,11 +95,11 @@ public class GameOnDatabase {
 
                 if (dataSnapshot.exists() && (long) dataSnapshot.getValue() == 1) {
                     int notificationId = 1;
-                    Intent viewIntent = new Intent(mContext, MainActivity.class);
+                    Intent viewIntent = new Intent(mContext, ViewRequests.class);
                     PendingIntent viewPendingIntent = PendingIntent.getActivity(mContext, 0, viewIntent, 0);
                     NotificationCompat.Builder notificationBuilder =
                             (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setSmallIcon(R.mipmap.logo)
                                     .setContentTitle("Game On!")
                                     .setContentText("First notification")
                                     .setContentIntent(viewPendingIntent)
