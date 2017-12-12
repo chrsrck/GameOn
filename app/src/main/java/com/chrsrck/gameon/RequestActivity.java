@@ -44,9 +44,8 @@ public class RequestActivity extends AppCompatActivity implements View.OnClickLi
         String[] items = intent.getStringArrayExtra(ChooseSportActivity.OPTIONS);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         itemText.setAdapter(adapter);
-
+        MainActivity.gameOnDatabase.mContext = this;
 //        requestButton = (Button) findViewById(R.id.requestButton);
-        mGameOnDatabase = new GameOnDatabase(this);
     }
 
     @Override

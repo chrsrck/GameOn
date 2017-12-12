@@ -42,6 +42,7 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
 
         Picasso.with(this).load("http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/device-camera-icon.png").into(pic);
         pic.setVisibility(View.VISIBLE);
+        MainActivity.gameOnDatabase.mContext = this;
     }
 
     @Override

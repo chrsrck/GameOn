@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String password;
     public static int RequestMade = 0;
     public static int DeleteMade = 0;
+    public static GameOnDatabase gameOnDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //icon.setVisibility(View.VISIBLE);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        gameOnDatabase = new GameOnDatabase();
+        gameOnDatabase.mContext = this;
     }
 
     @Override

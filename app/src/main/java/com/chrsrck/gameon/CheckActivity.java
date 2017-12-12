@@ -39,6 +39,7 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
         checkout.setOnClickListener(this);
         barcode.setOnClickListener(this);
         complete.setOnClickListener(this);
+        MainActivity.gameOnDatabase.mContext = this;
     }
 
     @Override

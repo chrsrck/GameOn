@@ -18,6 +18,7 @@ public class ViewReports extends AppCompatActivity implements View.OnClickListen
         damage = findViewById(R.id.Damage);
         checked.setOnClickListener(this);
         damage.setOnClickListener(this);
+        MainActivity.gameOnDatabase.mContext = this;
     }
 
     @Override

@@ -47,6 +47,7 @@ public class ChooseSportActivity extends AppCompatActivity implements View.OnCli
         general.setOnClickListener(this);
         Picasso.with(this).load("https://university.ffspro.com/media/1213/installation-safety-icon.png").into(general);
         general.setVisibility(View.VISIBLE);
+        MainActivity.gameOnDatabase.mContext = this;
     }
 
     @Override

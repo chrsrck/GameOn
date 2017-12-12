@@ -41,6 +41,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
                 t1.setText("There are 0 pending requests.");
             }
         }
+        MainActivity.gameOnDatabase.mContext = this;
     }
 
     @Override

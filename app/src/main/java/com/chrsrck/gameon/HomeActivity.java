@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         else if (MainActivity.username.equals("2")) {
             request.setVisibility(View.GONE);
         }
+        MainActivity.gameOnDatabase.mContext = this;
     }
 
     @Override

@@ -25,16 +25,15 @@ public class GameOnDatabase {
     private DatabaseReference equipmentDatabase;
     private DatabaseReference requestDatabase;
     private ValueEventListener notificationListener;
-    private Context mContext;
+    public Context mContext;
 
 
-    public GameOnDatabase(Context context) {
+    public GameOnDatabase() {
 //        messageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages");
         equipmentDatabase = FirebaseDatabase.getInstance().getReference().child("Inventory");
         requestDatabase = FirebaseDatabase.getInstance().getReference().child("Requests");
         notificationFlag = FirebaseDatabase.getInstance().getReference().child("NotificationFlag");
         notificationFlag.setValue(0);
-        mContext = context;
         setupNotifcation();
     }
 
@@ -63,16 +62,16 @@ public class GameOnDatabase {
     }
 
     public void borrowEquipment(String idKey, String ownerName, String location) {
-        StringBuilder sd = new StringBuilder("SD-");
-        sd.append(idKey);
+//        StringBuilder sd = new StringBuilder("SD-");
+//        sd.append(idKey);
         DatabaseReference item = requestDatabase.child(idKey).child("Item");
         item.child("Owner").setValue(ownerName);
         item.child("Location").setValue(location);
     }
 
     public void returnEquipment(String idKey) {
-        StringBuilder sd = new StringBuilder("SD-");
-        sd.append(idKey);
+//        StringBuilder sd = new StringBuilder("SD-");
+//        sd.append(idKey);
         DatabaseReference item = requestDatabase.child(idKey).child("Item");
         item.child("Owner").setValue("");
         item.child("Location").setValue("");
