@@ -31,6 +31,7 @@ public class GameOnDatabase {
     private LinkedList<EquipmentRequest> requestList;
     private LinkedList<Equipment> checkedOutList;
     private LinkedList<Equipment> brokenReportList;
+    private LinkedList<Equipment> mEquipmentsList;
 
     public Context mContext;
 
@@ -44,6 +45,7 @@ public class GameOnDatabase {
         requestList = new LinkedList<EquipmentRequest>();
         checkedOutList = new LinkedList<Equipment>();
         brokenReportList = new LinkedList<Equipment>();
+        mEquipmentsList = new LinkedList<Equipment>();
         setupRequestListener();
         setupEquipmentListner();
         setupNotifcation();
@@ -56,6 +58,8 @@ public class GameOnDatabase {
     public LinkedList<Equipment> getAllCheckedOutEquipment() {return checkedOutList;}
 
     public LinkedList<Equipment> getAllBrokenReports() {return brokenReportList;}
+
+    public LinkedList<Equipment> getAllEquipment() {return brokenReportList;}
 
     public void setupRequestListener() {
         requestDatabase.addValueEventListener(new ValueEventListener() {
@@ -111,16 +115,15 @@ public class GameOnDatabase {
                             reporter = (String) brokenReportSnapshot.child("Reporter").getValue();
                             idNumReport = (long) equipSnapshot.child("Broken Report ID").getValue();
                         }
-
+                        Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
                         if (!location.equals("") && !owner.equals("")) {
-                            Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
                             checkedOutList.add(equipment);
                         }
 
                         if (brokenReportSnapshot.exists() && idNumReport != -1 && !reporter.equals("") && !description.equals("")) {
-                            Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
                             brokenReportList.add(equipment);
                         }
+                        mEquipmentsList.add(equipment);
                     }
                 }
             }
