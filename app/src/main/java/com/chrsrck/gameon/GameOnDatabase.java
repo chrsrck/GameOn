@@ -26,7 +26,6 @@ public class GameOnDatabase {
     private DatabaseReference notificationFlag;
     private DatabaseReference equipmentDatabase;
     private DatabaseReference requestDatabase;
-
     private ValueEventListener notificationListener;
     private LinkedList<EquipmentRequest> requestList;
     private LinkedList<Equipment> checkedOutList;
@@ -76,8 +75,6 @@ public class GameOnDatabase {
                         EquipmentRequest request = new EquipmentRequest(requester, item, quantity, location, time);
                         requestList.add(request);
                     }
-
-
                 }
             }
 
@@ -113,7 +110,7 @@ public class GameOnDatabase {
                         if (brokenReportSnapshot.exists()) {
                             description = (String) brokenReportSnapshot.child("Description").getValue();
                             reporter = (String) brokenReportSnapshot.child("Reporter").getValue();
-                            idNumReport = (long) equipSnapshot.child("Broken Report ID").getValue();
+                            //idNumReport = (long) equipSnapshot.child("Broken Report ID").getValue();
                         }
                         Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
                         if (!location.equals("") && !owner.equals("")) {
@@ -159,20 +156,39 @@ public class GameOnDatabase {
         requestDatabase.child(requestKey).removeValue();
     }
 
-    public void borrowEquipment(String idKey, String ownerName, String location) {
-//        StringBuilder sd = new StringBuilder("SD-");
-//        sd.append(idKey);
-        DatabaseReference item = requestDatabase.child(idKey).child("Item");
+    public int borrowEquipment(String ownerName, String location, String idKey) {
+
+        DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
         item.child("Owner").setValue(ownerName);
         item.child("Location").setValue(location);
+        return 0;
     }
 
-    public void returnEquipment(String idKey) {
-//        StringBuilder sd = new StringBuilder("SD-");
-//        sd.append(idKey);
-        DatabaseReference item = requestDatabase.child(idKey).child("Item");
+    public int addDamageReport(String reporter, String idKey, String description) {
+        //long BRID = Long.parseLong(equipmentDatabase.child(idKey).child("Broken Report ID").getKey());
+
+
+        //if(BRID != -1) {
+        //    return -1;
+        //}
+        DatabaseReference item = equipmentDatabase.child(idKey).child("Broken Report");
+        item.child("Description").setValue(description);
+        item.child("Reporter").setValue(reporter);
+
+        equipmentDatabase.child(idKey).child("Broken Report ID").setValue(
+                equipmentDatabase.child(idKey).child("ID").getKey());
+        return 0;
+    }
+
+    public int returnEquipment(String idKey) {
+        DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
+        //if (item.child("Owner").getKey().equals("")) {
+        //return -2;
+        //}
+
         item.child("Owner").setValue("");
         item.child("Location").setValue("");
+        return 0;
     }
 
 //    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {

@@ -45,7 +45,6 @@ public class RequestActivity extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         itemText.setAdapter(adapter);
         MainActivity.gameOnDatabase.mContext = this;
-//        requestButton = (Button) findViewById(R.id.requestButton);
     }
 
     @Override
@@ -68,21 +67,11 @@ public class RequestActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void requestButtonClicked(View view) {
-        /*
-        Check 36 min mark in the tutorial to implement messaging with users
-
-         */
         String requester = requesterText.getText().toString().trim();
-        String item = itemText.toString().trim();
+        String item = itemText.getSelectedItem().toString().trim();
         String quantity = quantityText.getText().toString().trim();
         String location = locationText.getText().toString().trim();
-        String request = "";
         if (!requester.isEmpty()) {
-//            final DatabaseReference newPost = messageDatabase.push();
-////             add value event listeners
-//            newPost.child("content").setValue(requester);
-//            mGameOnDatabase.addToMessageDatabase(requester);
-
              MainActivity.gameOnDatabase.addToRequestDatabase(requester, item, Long.parseLong(quantity), location, "DEC 09 2017");
              MainActivity.gameOnDatabase.triggerNotification();
         }
@@ -93,7 +82,6 @@ public class RequestActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if (view.getId() == requestButton.getId()) {
-            MainActivity.RequestMade = 1;
             requestButtonClicked(view);
         }
     }

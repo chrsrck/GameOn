@@ -53,23 +53,42 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
             String name = requester.getText().toString().trim();
             String loc = location.getText().toString().trim();
             String item = itemId.getText().toString().trim();
-            //check which radio button is clicked
-            //Update server
-            Toast.makeText(this, "Successful Submission!",
-                    Toast.LENGTH_SHORT).show();
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //Do something here
-                    goHome();
+
+            if(name.equals("") || loc.equals("") || item.equals("")) {
+                Toast.makeText(this, "Missing Fields!", Toast.LENGTH_SHORT).show();
+            }
+            else if(checkin.isChecked()) {
+                int result = MainActivity.gameOnDatabase.returnEquipment(item);
+                if(result == -1) {
+                    Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
                 }
-            }, 2000);
+                else if(result == -2) {
+                    Toast.makeText(this, "Item already returned", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this, "Successfully returned " + name, Toast.LENGTH_SHORT).show();
+                }
+            }
+            else if(checkout.isChecked()) {
+                int result = MainActivity.gameOnDatabase.borrowEquipment(name, loc, item);
+                if(result == -1) {
+                    Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
+                }
+                else if(result == -2) {
+                    Toast.makeText(this, "Item unavailable: Broken", Toast.LENGTH_SHORT).show();
+                }
+                else if(result == -3) {
+                    Toast.makeText(this, "Item unavailable: Borrowed", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this, "Successfully Borrowed " + name, Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(this, "Select a Check option!", Toast.LENGTH_SHORT).show();
+            }
+            itemId.setText("");
         }
-    }
-    private void goHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

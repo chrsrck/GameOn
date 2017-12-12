@@ -29,12 +29,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         viewreports.setOnClickListener(this);
         viewrequests.setOnClickListener(this);
 
-        if (MainActivity.username.equals("1")) {
+        if (MainActivity.username.equals("scorekeeper@vt.edu")) {
             check.setVisibility(View.GONE);
             damage.setVisibility(View.GONE);
             viewreports.setVisibility(View.GONE);
         }
-        else if (MainActivity.username.equals("2")) {
+        else if (MainActivity.username.equals("supervisor@vt.edu")) {
             request.setVisibility(View.GONE);
         }
         MainActivity.gameOnDatabase.mContext = this;

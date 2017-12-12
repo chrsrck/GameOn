@@ -16,11 +16,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText email;
     EditText pw;
     Button login;
-    ImageView icon;
     public static String username;
     public static String password;
-    public static int RequestMade = 0;
-    public static int DeleteMade = 0;
+    public static boolean isSupervisor = false;
     public static GameOnDatabase gameOnDatabase;
 
     @Override
@@ -32,9 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pw = findViewById(R.id.pw_field);
         login = findViewById(R.id.login);
         login.setOnClickListener(this);
-        icon = findViewById(R.id.icon);
-        //Picasso.with(this).load("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png").into(icon);
-        //icon.setVisibility(View.VISIBLE);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         gameOnDatabase = new GameOnDatabase();
@@ -51,8 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == login.getId()) {
             username = email.getText().toString().trim();
             password = pw.getText().toString().trim();
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+            if (username.equals("supervisor@vt.edu") || username.equals("")) {
+                isSupervisor = true;
+            }
+            //if (username.equals("scorekeeper@vt.edu") || username.equals("supervisor@vt.edu")) {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+            //}
         }
     }
 }

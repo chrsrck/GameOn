@@ -21,7 +21,6 @@
                 android:id="@+id/totalRequest"
                 android:textSize="20sp"
                 android:textColor="#FFFFFF"
-                android:text="You have 0 pending requests."
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp" />
@@ -29,8 +28,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginBottom="10dp"
                 android:background="#FFFFFF"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tablelayout">
+
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

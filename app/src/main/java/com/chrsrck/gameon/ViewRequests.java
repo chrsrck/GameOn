@@ -1,70 +1,145 @@
 package com.chrsrck.gameon;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.TableLayout.LayoutParams;
 
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.LinkedList;
 
 public class ViewRequests extends AppCompatActivity implements View.OnClickListener{
-    TextView t1;
-    Button b1;
-    Button b2;
-    TableLayout l1;
-    TableLayout l2;
-    int count = 2;
-    private DatabaseReference mRequestsReference;
+    TextView text;
+    TextView[] strings;
+    TableRow[] rows;
+    Button[] buttons;
+    View[] vs;
+    TableLayout layout;
+
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (MainActivity.username.equals("1")) {
-            if (MainActivity.RequestMade == 0) {
-                setContentView(R.layout.activity_view_requests);
-            }
-            else {
-                setContentView(R.layout.activity_view_requests2);
-                MainActivity.RequestMade = 0;
-            }
+        setContentView(R.layout.activity_view_requests);
+        MainActivity.gameOnDatabase.mContext = this;
+        text = findViewById(R.id.totalRequest);
+        layout = findViewById(R.id.tablelayout);
+        LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
+        int length = requests.size();
+        count = length;
+        text.setText("There are " + length + " pending requests.");
+        buttons = new Button[length];
+        vs = new View[length];
+        strings = new TextView[length*4];
+        rows = new TableRow[length*2];
+
+        int paddingPixel = 10;
+        float density = this.getResources().getDisplayMetrics().density;
+        int paddingDp = (int)(paddingPixel * density);
+
+        int paddingPixel2 = 2;
+        float density2 = this.getResources().getDisplayMetrics().density;
+        int paddingDp2 = (int)(paddingPixel2 * density2);
+
+        float weight;
+        if (MainActivity.isSupervisor) {
+            weight = 2f;
         }
         else {
-            setContentView(R.layout.activity_view_requests3);
-            b1 = findViewById(R.id.complete1);
-            b2 = findViewById(R.id.complete2);
-            b1.setOnClickListener(this);
-            b2.setOnClickListener(this);
-            l1 = findViewById(R.id.layout1);
-            l2 = findViewById(R.id.layout2);
-            t1 = findViewById(R.id.numRequests);
-            if (MainActivity.DeleteMade == 1) {
-                l1.setVisibility(View.GONE);
-                l2.setVisibility(View.GONE);
-                t1.setText("There are 0 pending requests.");
-            }
+            weight = 1f;
         }
-        MainActivity.gameOnDatabase.mContext = this;
-        LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
+
+        for (int i = 0; i < length; i++) {
+            TableRow row = new TableRow(this);
+            strings[i*4] = new TextView(this);
+            strings[i*4].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
+            strings[i*4].setText(requests.get(i).getItem());
+            strings[i*4].setTextColor(Color.WHITE);
+            strings[i*4].setTextSize(18);
+            strings[i*4].setGravity(Gravity.CENTER);
+            strings[i*4].setPadding(0, paddingDp, 0, 0);
+            strings[i*4 + 1] = new TextView(this);
+            strings[i*4 + 1].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
+            strings[i*4 + 1].setText(requests.get(i).getRequester());
+            strings[i*4 + 1].setTextColor(Color.WHITE);
+            strings[i*4 + 1].setTextSize(18);
+            strings[i*4 + 1].setGravity(Gravity.CENTER);
+            strings[i*4 + 1].setPadding(0, paddingDp, 0, 0);
+            row.addView(strings[i*4]);
+            row.addView(strings[i*4 + 1]);
+            TableRow row2 = new TableRow(this);
+            strings[i*4 + 2] = new TextView(this);
+            strings[i*4 + 2].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
+            strings[i*4 + 2].setText("Quantity: " + requests.get(i).getQuantity());
+            strings[i*4 + 2].setTextColor(Color.WHITE);
+            strings[i*4 + 2].setTextSize(18);
+            strings[i*4 + 2].setGravity(Gravity.CENTER);
+            strings[i*4 + 2].setPadding(0, paddingDp, 0, paddingDp);
+            strings[i*4 + 3] = new TextView(this);
+            strings[i*4 + 3].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
+            strings[i*4 + 3].setText(requests.get(i).getLocation());
+            strings[i*4 + 3].setTextColor(Color.WHITE);
+            strings[i*4 + 3].setTextSize(18);
+            strings[i*4 + 3].setGravity(Gravity.CENTER);
+            strings[i*4 + 3].setPadding(0, paddingDp, 0, paddingDp);
+            row2.addView(strings[i*4 + 2]);
+            row2.addView(strings[i*4 + 3]);
+
+            if (MainActivity.isSupervisor) {
+                buttons[i] = new Button(this);
+                buttons[i].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f));
+                buttons[i].setText("\u2713");
+                buttons[i].setTextColor(Color.WHITE);
+                buttons[i].setTextSize(20);
+                buttons[i].setBackgroundResource(R.drawable.button_border);
+                buttons[i].setOnClickListener(this);
+                buttons[i].setPadding(0, paddingDp, 0, paddingDp);
+                buttons[i].setGravity(Gravity.CENTER);
+                buttons[i].setId(i);
+                row.addView(buttons[i]);
+
+                Button b2 = new Button(this);
+                b2.setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f));
+                b2.setText("\u2713");
+                b2.setTextColor(Color.WHITE);
+                b2.setTextSize(20);
+                b2.setBackgroundResource(R.drawable.button_border);
+                b2.setGravity(Gravity.CENTER);
+                row2.addView(b2);
+                b2.setVisibility(View.INVISIBLE);
+            }
+
+            rows[i*2] = row;
+            rows[i*2+1] = row2;
+            layout.addView(row,i*3);
+            layout.addView(row2, i*3 + 1);
+
+            View view = new View(this);
+            view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, paddingDp2));
+            view.setBackgroundColor(Color.WHITE);
+            vs[i] = view;
+            layout.addView(view, i*3 + 2);
+        }
     }
 
     @Override
     public void onClick(View view) {
-//        LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
-        if (view.getId() == b1.getId()) {
-            l1.setVisibility(View.GONE);
-            count--;
-            t1.setText("There are " + count + " pending requests.");
-            MainActivity.DeleteMade = 1;
-        }
-        else {
-            l2.setVisibility(View.GONE);
-            count--;
-            t1.setText("There are " + count + " pending requests.");
-            MainActivity.DeleteMade = 1;
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i].getId() == view.getId()) {
+                rows[i*2].setVisibility(View.GONE);
+                rows[i*2+1].setVisibility(View.GONE);
+                vs[i].setVisibility(View.GONE);
+                count--;
+                text.setText("There are " + count + " pending requests.");
+            }
         }
     }
 }

@@ -60,10 +60,17 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
         else if (view.getId() == submit.getId()) {
             //update database
             String name = reporter.getText().toString().trim();
-            //int id = Integer.parseInt(itemId.getText().toString().trim());
+            String idVal = itemId.getText().toString().trim();
             String description = desc.getText().toString().trim();
-            Toast.makeText(this, "Successful Submission!",
-                    Toast.LENGTH_SHORT).show();
+
+            int result = MainActivity.gameOnDatabase.addDamageReport(name, idVal, description);
+            if(result == -1) {
+                Toast.makeText(this, "Damage Report Already Exists", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "Damage Report Submitted", Toast.LENGTH_SHORT).show();
+            }
+
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
