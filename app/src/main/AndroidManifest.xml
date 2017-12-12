@@ -23,6 +23,10 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ViewReports"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ViewCheckedOutActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ViewDamagedActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".CheckActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".DamageActivity"

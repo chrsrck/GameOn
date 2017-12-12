@@ -1,11 +1,10 @@
 package com.chrsrck.gameon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.LinkedList;
 
 public class ViewReports extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,8 +20,6 @@ public class ViewReports extends AppCompatActivity implements View.OnClickListen
         checked.setOnClickListener(this);
         damage.setOnClickListener(this);
         MainActivity.gameOnDatabase.mContext = this;
-        LinkedList<Equipment> checkedOutEquipment = MainActivity.gameOnDatabase.getAllCheckedOutEquipment();
-        LinkedList<Equipment> brokenReports = MainActivity.gameOnDatabase.getAllBrokenReports();
     }
 
     @Override
@@ -33,10 +30,12 @@ public class ViewReports extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == checked.getId()) {
-
+            Intent intent = new Intent(this, ViewCheckedOutActivity.class);
+            startActivity(intent);
         }
         else {
-
+            Intent intent = new Intent(this, ViewDamagedActivity.class);
+            startActivity(intent);
         }
     }
 }

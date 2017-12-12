@@ -11,8 +11,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TableLayout.LayoutParams;
 
-import com.google.firebase.database.DatabaseReference;
-
 import java.util.LinkedList;
 
 public class ViewRequests extends AppCompatActivity implements View.OnClickListener{

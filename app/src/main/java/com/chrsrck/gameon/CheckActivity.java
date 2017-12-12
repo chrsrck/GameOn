@@ -54,10 +54,7 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
             String loc = location.getText().toString().trim();
             String item = itemId.getText().toString().trim();
 
-            if(name.equals("") || loc.equals("") || item.equals("")) {
-                Toast.makeText(this, "Missing Fields!", Toast.LENGTH_SHORT).show();
-            }
-            else if(checkin.isChecked()) {
+            if(checkin.isChecked()) {
                 int result = MainActivity.gameOnDatabase.returnEquipment(item);
                 if(result == -1) {
                     Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
@@ -70,18 +67,23 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
             else if(checkout.isChecked()) {
-                int result = MainActivity.gameOnDatabase.borrowEquipment(name, loc, item);
-                if(result == -1) {
-                    Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
-                }
-                else if(result == -2) {
-                    Toast.makeText(this, "Item unavailable: Broken", Toast.LENGTH_SHORT).show();
-                }
-                else if(result == -3) {
-                    Toast.makeText(this, "Item unavailable: Borrowed", Toast.LENGTH_SHORT).show();
+                if(name.equals("") || loc.equals("") || item.equals("")) {
+                    Toast.makeText(this, "Missing Fields!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(this, "Successfully Borrowed " + name, Toast.LENGTH_SHORT).show();
+                    int result = MainActivity.gameOnDatabase.borrowEquipment(name, loc, item);
+                    if(result == -1) {
+                        Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(result == -2) {
+                        Toast.makeText(this, "Item unavailable: Broken", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(result == -3) {
+                        Toast.makeText(this, "Item unavailable: Borrowed", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(this, "Successfully Borrowed " + name, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             else {

@@ -81,7 +81,7 @@ public class ChooseSportActivity extends AppCompatActivity implements View.OnCli
             intent.putExtra(OPTIONS, items);
         }
         else if (view.getId() == frisbee.getId()) {
-            String[] items = new String[]{"", "Frisbee Discs"};
+            String[] items = new String[]{"Frisbee Discs"};
             intent.putExtra(OPTIONS, items);
         }
         else if (view.getId() == kickball.getId()) {

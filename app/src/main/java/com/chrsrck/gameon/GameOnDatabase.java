@@ -90,6 +90,7 @@ public class GameOnDatabase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 checkedOutList.clear();
+                brokenReportList.clear();
                 for (DataSnapshot equipSnapshot : dataSnapshot.getChildren()) {
                     if (equipSnapshot.getValue() != null) {
                         DataSnapshot itemSnapshot = equipSnapshot.child("Item");
@@ -110,7 +111,7 @@ public class GameOnDatabase {
                         if (brokenReportSnapshot.exists()) {
                             description = (String) brokenReportSnapshot.child("Description").getValue();
                             reporter = (String) brokenReportSnapshot.child("Reporter").getValue();
-                            //idNumReport = (long) equipSnapshot.child("Broken Report ID").getValue();
+                            idNumReport = (long) equipSnapshot.child("Broken Report ID").getValue();
                         }
                         Equipment equipment = new Equipment(idNum, itemName, location, owner, reporter, description, idNumReport);
                         if (!location.equals("") && !owner.equals("")) {
@@ -175,30 +176,17 @@ public class GameOnDatabase {
         item.child("Description").setValue(description);
         item.child("Reporter").setValue(reporter);
 
-        equipmentDatabase.child(idKey).child("Broken Report ID").setValue(
-                equipmentDatabase.child(idKey).child("ID").getKey());
+        equipmentDatabase.child(idKey).child("Broken Report ID").setValue(0);
         return 0;
     }
 
     public int returnEquipment(String idKey) {
         DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
-        //if (item.child("Owner").getKey().equals("")) {
-        //return -2;
-        //}
 
         item.child("Owner").setValue("");
         item.child("Location").setValue("");
         return 0;
     }
-
-//    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
-//    public void addToEquipmentDatabase(int idNum, String itemName, String location, String owner, String reporter, String description) {
-//        DamageReport damageReport = new DamageReport();
-//        Equipment equipment = new Equipment(idNum, itemName, location, owner, isBroken, reporter, description);
-////        String key = equipmentDatabase.push().getKey();
-//        DatabaseReference inventoryItem = equipmentDatabase.child(Integer.toString(idNum));
-//        inventoryItem.setValue(equipment);
-//    }
 
     public void setupNotifcation() {
         Log.d(TAG, "Setup notification called");

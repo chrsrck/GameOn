@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
 public class DamageActivity extends AppCompatActivity implements View.OnClickListener {
@@ -56,6 +58,8 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
         else if (view.getId() == barCode.getId()) {
             //open camera
             //scan barcode
+            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+            scanIntegrator.initiateScan();
         }
         else if (view.getId() == submit.getId()) {
             //update database
@@ -84,6 +88,17 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == CAMERA_PIC_REQUEST) {
             Bitmap image = (Bitmap) data.getExtras().get("data");
             pic.setImageBitmap(image);
+        }
+        else {
+            IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (scanningResult != null) {
+                String scanContent = scanningResult.getContents();
+                ((EditText)findViewById(R.id.inputSerialTextField)).setText(scanContent);
+            }
+            else {
+                Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
     }
 

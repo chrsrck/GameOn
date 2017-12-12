@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == login.getId()) {
             username = email.getText().toString().trim();
             password = pw.getText().toString().trim();
-            if (username.equals("supervisor@vt.edu") || username.equals("")) {
+            if (username.equals("supervisor@vt.edu")) {
                 isSupervisor = true;
             }
-            //if (username.equals("scorekeeper@vt.edu") || username.equals("supervisor@vt.edu")) {
+            if (username.equals("scorekeeper@vt.edu") || username.equals("supervisor@vt.edu")) {
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
-            //}
+            }
         }
     }
 }
