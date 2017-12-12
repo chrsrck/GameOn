@@ -62,7 +62,7 @@ public class GameOnDatabase {
         requestDatabase.child(requestKey).removeValue();
     }
 
-    public void checkoutEquipment(String idKey, String ownerName, String location) {
+    public void borrowEquipment(String idKey, String ownerName, String location) {
         StringBuilder sd = new StringBuilder("SD-");
         sd.append(idKey);
         DatabaseReference item = requestDatabase.child(idKey).child("Item");
@@ -70,7 +70,7 @@ public class GameOnDatabase {
         item.child("Location").setValue(location);
     }
 
-    public void checkInEquipment(String idKey, String ownerName, String location) {
+    public void returnEquipment(String idKey) {
         StringBuilder sd = new StringBuilder("SD-");
         sd.append(idKey);
         DatabaseReference item = requestDatabase.child(idKey).child("Item");

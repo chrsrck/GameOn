@@ -11,6 +11,9 @@ import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 public class CheckActivity extends AppCompatActivity implements View.OnClickListener {
 
     RadioButton checkin;
@@ -18,7 +21,6 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
     EditText requester;
     EditText location;
     EditText itemId;
-    EditText quantity;
     Button barcode;
     Button complete;
 
@@ -31,7 +33,6 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
         requester = findViewById(R.id.inputReporterTextField);
         location = findViewById(R.id.inputLocation);
         itemId = findViewById(R.id.inputSerialTextField);
-        quantity = findViewById(R.id.inputQuantity);
         barcode = findViewById(R.id.scanCode);
         complete = findViewById(R.id.checkInOutButton);
         checkin.setOnClickListener(this);
@@ -44,12 +45,13 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if (view.getId() == barcode.getId()) {
             //open camera, etc, may need to save data.
+            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+            scanIntegrator.initiateScan();
         }
         else if (view.getId() == complete.getId()) {
             String name = requester.getText().toString().trim();
             String loc = location.getText().toString().trim();
             String item = itemId.getText().toString().trim();
-            //int quant = Integer.parseInt(quantity.getText().toString().trim());
             //check which radio button is clicked
             //Update server
             Toast.makeText(this, "Successful Submission!",
@@ -67,5 +69,17 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            String scanContent = scanningResult.getContents();
+            ((EditText)findViewById(R.id.inputSerialTextField)).setText(scanContent);
+        }
+        else {
+            Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }
