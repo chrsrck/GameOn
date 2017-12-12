@@ -14,10 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by chrsrck on 12/8/17.
- */
-
 public class GameOnDatabase {
     private static final String TAG = "GameOnDatabase";
     private DatabaseReference messageDatabase;
@@ -61,20 +57,32 @@ public class GameOnDatabase {
         requestDatabase.child(requestKey).removeValue();
     }
 
-    public void borrowEquipment(String idKey, String ownerName, String location) {
-//        StringBuilder sd = new StringBuilder("SD-");
-//        sd.append(idKey);
-        DatabaseReference item = requestDatabase.child(idKey).child("Item");
+    public int borrowEquipment(String idKey, String ownerName, String location) {
+        if (equipmentDatabase.child(idKey) == null) {
+            return -1;
+        } else if (equipmentDatabase.child(idKey).child("Broken Report").child("Description").getKey().equals("")) {
+            return -2;
+        } else if (equipmentDatabase.child(idKey).child("Item").child("Owner").getKey().equals("")) {
+            return -3;
+        }
+        DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
         item.child("Owner").setValue(ownerName);
         item.child("Location").setValue(location);
+        return 0;
     }
 
-    public void returnEquipment(String idKey) {
-//        StringBuilder sd = new StringBuilder("SD-");
-//        sd.append(idKey);
+    public int returnEquipment(String idKey) {
+        if (equipmentDatabase.child(idKey) == null) {
+            return -1;
+        }
         DatabaseReference item = requestDatabase.child(idKey).child("Item");
+        if (item.child("Owner").getKey().equals("")) {
+            return -2;
+        }
+
         item.child("Owner").setValue("");
         item.child("Location").setValue("");
+        return 0;
     }
 
 //    public void addToEquipmentDatabase(int idNum, boolean isBroken, String reporter, String description) {
