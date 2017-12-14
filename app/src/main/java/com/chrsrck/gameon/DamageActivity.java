@@ -67,21 +67,25 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
             String idVal = itemId.getText().toString().trim();
             String description = desc.getText().toString().trim();
 
-            int result = MainActivity.gameOnDatabase.addDamageReport(name, idVal, description);
-            if(result == -1) {
-                Toast.makeText(this, "Damage Report Already Exists", Toast.LENGTH_SHORT).show();
+            if (name.equals("") || idVal.equals("") || description.equals("")) {
+                Toast.makeText(this, "Missing Fields!", Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "Damage Report Submitted", Toast.LENGTH_SHORT).show();
-            }
-
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //Do something here
-                    goHome();
+                int result = MainActivity.gameOnDatabase.addDamageReport(name, idVal, description);
+                if(result == -1) {
+                    Toast.makeText(this, "Invalid Item ID: Must be SI-1 through SI-1128", Toast.LENGTH_LONG).show();
                 }
-            }, 2000);
+                else {
+                    Toast.makeText(this, "Damage Report Submitted", Toast.LENGTH_SHORT).show();
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Do something here
+                            goHome();
+                        }
+                    }, 2000);
+                }
+            }
         }
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

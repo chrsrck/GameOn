@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -71,12 +72,20 @@ public class RequestActivity extends AppCompatActivity implements View.OnClickLi
         String item = itemText.getSelectedItem().toString().trim();
         String quantity = quantityText.getText().toString().trim();
         String location = locationText.getText().toString().trim();
-        if (!requester.isEmpty()) {
-             MainActivity.gameOnDatabase.addToRequestDatabase(requester, item, Long.parseLong(quantity), location, "DEC 09 2017");
-             MainActivity.gameOnDatabase.triggerNotification();
+        if (requester.equals("")) {
+            Toast.makeText(this, "Missing field: Requester", Toast.LENGTH_SHORT).show();
         }
-
-
+        else if (quantity.equals("")) {
+            Toast.makeText(this, "Missing field: Quantity", Toast.LENGTH_SHORT).show();
+        }
+        else if (location.equals("")) {
+            Toast.makeText(this, "Missing field: Location", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            MainActivity.gameOnDatabase.addToRequestDatabase(requester, item, Long.parseLong(quantity), location, "DEC 09 2017");
+            MainActivity.gameOnDatabase.triggerNotification();
+            Toast.makeText(this, "Successful Request!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

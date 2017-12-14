@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,10 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
-
-/**
- * Created by chrsrck on 12/8/17.
- */
 
 public class GameOnDatabase {
     private static final String TAG = "GameOnDatabase";
@@ -30,7 +25,7 @@ public class GameOnDatabase {
     private LinkedList<EquipmentRequest> requestList;
     private LinkedList<Equipment> checkedOutList;
     private LinkedList<Equipment> brokenReportList;
-    private LinkedList<Equipment> mEquipmentsList;
+    private LinkedList<String> requestIDList;
 
     public Context mContext;
 
@@ -44,7 +39,7 @@ public class GameOnDatabase {
         requestList = new LinkedList<EquipmentRequest>();
         checkedOutList = new LinkedList<Equipment>();
         brokenReportList = new LinkedList<Equipment>();
-        mEquipmentsList = new LinkedList<Equipment>();
+        requestIDList = new LinkedList<String>();
         setupRequestListener();
         setupEquipmentListner();
         setupNotifcation();
@@ -58,13 +53,14 @@ public class GameOnDatabase {
 
     public LinkedList<Equipment> getAllBrokenReports() {return brokenReportList;}
 
-    public LinkedList<Equipment> getAllEquipment() {return brokenReportList;}
+    public LinkedList<String> getAllRequestsID() {return requestIDList;}
 
     public void setupRequestListener() {
         requestDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requestList.clear();
+                requestIDList.clear();
                 for (DataSnapshot requestSnapshot : dataSnapshot.getChildren()) {
                     if (requestSnapshot.getValue() != null) {
                         String requester = (String )requestSnapshot.child("requester").getValue();
@@ -74,6 +70,7 @@ public class GameOnDatabase {
                         String time = (String )requestSnapshot.child("time").getValue();
                         EquipmentRequest request = new EquipmentRequest(requester, item, quantity, location, time);
                         requestList.add(request);
+                        requestIDList.add(requestSnapshot.getKey());
                     }
                 }
             }
@@ -121,7 +118,6 @@ public class GameOnDatabase {
                         if (brokenReportSnapshot.exists() && idNumReport != -1 && !reporter.equals("") && !description.equals("")) {
                             brokenReportList.add(equipment);
                         }
-                        mEquipmentsList.add(equipment);
                     }
                 }
             }
@@ -133,59 +129,79 @@ public class GameOnDatabase {
         });
     }
 
-    // used to test server functionality
-//    public void addToMessageDatabase(String contentStr) {
-//        final DatabaseReference newPost = messageDatabase.push();
-//
-////             add value event listeners
-//        newPost.child("content").setValue(contentStr);
-//
-//    }
-
     public void addToRequestDatabase(String requester, String item, long quantity, String location, String time) {
         EquipmentRequest equipmentRequest = new EquipmentRequest(requester, item, quantity, location, time);
-//        String key = requestDatabase.push().getKey();
-//        requestDatabase.child(key).setValue(equipmentRequest);
-//        String idNumKey = Integer.toString(idNum + idAdder);
         DatabaseReference requestRef = requestDatabase.push();
         requestRef.setValue(equipmentRequest);
-
     }
 
-    public void removeFromRequestDatabase(int idNum) {
-        String requestKey = Integer.toString(idNum);
-        requestDatabase.child(requestKey).removeValue();
+    public void removeFromRequestDatabase(String idNum) {
+        requestDatabase.child(idNum).removeValue();
     }
 
     public int borrowEquipment(String ownerName, String location, String idKey) {
+        if (checkItemID(idKey)) {
+            DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
+            item.child("Owner").setValue(ownerName);
+            item.child("Location").setValue(location);
+            return 0;
+        }
+        else {
+            return -1;
+        }
+    }
 
-        DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
-        item.child("Owner").setValue(ownerName);
-        item.child("Location").setValue(location);
-        return 0;
+    public boolean checkItemID(String idKey) {
+        if (idKey.contains("-")) {
+            String parts[] = idKey.split("-");
+            String s1 = parts[0];
+            String s2 = parts[1];
+            if (!s1.equals("SI")) {
+                return false;
+            }
+            try {
+                int num = Integer.parseInt(s2);
+                if (num < 1 || num > 1128) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
     }
 
     public int addDamageReport(String reporter, String idKey, String description) {
-        //long BRID = Long.parseLong(equipmentDatabase.child(idKey).child("Broken Report ID").getKey());
+        if (checkItemID(idKey)) {
+            DatabaseReference item = equipmentDatabase.child(idKey).child("Broken Report");
+            item.child("Description").setValue(description);
+            item.child("Reporter").setValue(reporter);
 
-
-        //if(BRID != -1) {
-        //    return -1;
-        //}
-        DatabaseReference item = equipmentDatabase.child(idKey).child("Broken Report");
-        item.child("Description").setValue(description);
-        item.child("Reporter").setValue(reporter);
-
-        equipmentDatabase.child(idKey).child("Broken Report ID").setValue(0);
-        return 0;
+            equipmentDatabase.child(idKey).child("Broken Report ID").setValue(0);
+            return 0;
+        }
+        else {
+            return -1;
+        }
     }
 
     public int returnEquipment(String idKey) {
-        DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
+        if (checkItemID(idKey)) {
+            DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
 
-        item.child("Owner").setValue("");
-        item.child("Location").setValue("");
-        return 0;
+            item.child("Owner").setValue("");
+            item.child("Location").setValue("");
+            return 0;
+        }
+        else {
+            return -1;
+        }
     }
 
     public void setupNotifcation() {

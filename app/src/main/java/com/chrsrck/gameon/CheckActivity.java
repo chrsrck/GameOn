@@ -8,8 +8,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Button;
 import android.widget.Toast;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -55,15 +53,20 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
             String item = itemId.getText().toString().trim();
 
             if(checkin.isChecked()) {
-                int result = MainActivity.gameOnDatabase.returnEquipment(item);
-                if(result == -1) {
-                    Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
-                }
-                else if(result == -2) {
-                    Toast.makeText(this, "Item already returned", Toast.LENGTH_SHORT).show();
+                if(name.equals("") || loc.equals("") || item.equals("")) {
+                    Toast.makeText(this, "Missing Fields!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(this, "Successfully returned " + name, Toast.LENGTH_SHORT).show();
+                    int result = MainActivity.gameOnDatabase.returnEquipment(item);
+                    if(result == -1) {
+                        Toast.makeText(this, "Invalid Item ID: Must be SI-1 through SI-1128", Toast.LENGTH_LONG).show();
+                    }
+                    else if(result == -2) {
+                        Toast.makeText(this, "Item already returned", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(this, "Successfully returned " + name, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             else if(checkout.isChecked()) {
@@ -73,7 +76,7 @@ public class CheckActivity extends AppCompatActivity implements View.OnClickList
                 else {
                     int result = MainActivity.gameOnDatabase.borrowEquipment(name, loc, item);
                     if(result == -1) {
-                        Toast.makeText(this, "Invalid ID Field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Invalid Item ID: Must be SI-1 through SI-1128", Toast.LENGTH_LONG).show();
                     }
                     else if(result == -2) {
                         Toast.makeText(this, "Item unavailable: Broken", Toast.LENGTH_SHORT).show();

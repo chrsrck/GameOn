@@ -17,6 +17,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
     TextView text;
     TextView[] strings;
     TableRow[] rows;
+    String[] requestsID;
     Button[] buttons;
     View[] vs;
     TableLayout layout;
@@ -31,10 +32,12 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
         text = findViewById(R.id.totalRequest);
         layout = findViewById(R.id.tablelayout);
         LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
+        LinkedList<String> ids = MainActivity.gameOnDatabase.getAllRequestsID();
         int length = requests.size();
         count = length;
         text.setText("There are " + length + " pending requests.");
         buttons = new Button[length];
+        requestsID = new String[length];
         vs = new View[length];
         strings = new TextView[length*4];
         rows = new TableRow[length*2];
@@ -102,6 +105,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
                 buttons[i].setPadding(0, paddingDp, 0, paddingDp);
                 buttons[i].setGravity(Gravity.CENTER);
                 buttons[i].setId(i);
+                requestsID[i] = ids.get(i);
                 row.addView(buttons[i]);
 
                 Button b2 = new Button(this);
@@ -135,6 +139,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
                 rows[i*2].setVisibility(View.GONE);
                 rows[i*2+1].setVisibility(View.GONE);
                 vs[i].setVisibility(View.GONE);
+                MainActivity.gameOnDatabase.removeFromRequestDatabase(requestsID[i]);
                 count--;
                 text.setText("There are " + count + " pending requests.");
             }

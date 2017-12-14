@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (username.equals("supervisor@vt.edu")) {
                 isSupervisor = true;
             }
-            if (username.equals("scorekeeper@vt.edu") || username.equals("supervisor@vt.edu")) {
+            if (username.equals("scorekeeper@vt.edu") || username.equals("supervisor@vt.edu") || username.equals("")) {
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
             }
