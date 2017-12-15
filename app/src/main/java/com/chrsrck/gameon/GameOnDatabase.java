@@ -15,13 +15,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
 
+/*
+ *  The class that is responsible with communicating with the database
+ */
 public class GameOnDatabase {
     private static final String TAG = "GameOnDatabase";
-    private DatabaseReference messageDatabase;
     private DatabaseReference notificationFlag;
     private DatabaseReference equipmentDatabase;
     private DatabaseReference requestDatabase;
-    private ValueEventListener notificationListener;
     private LinkedList<EquipmentRequest> requestList;
     private LinkedList<Equipment> checkedOutList;
     private LinkedList<Equipment> brokenReportList;
@@ -29,9 +30,10 @@ public class GameOnDatabase {
 
     public Context mContext;
 
-
+    /*
+     *  Initialize the database and the lists of data we need to store locally for reports
+     */
     public GameOnDatabase() {
-//        messageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages");
         equipmentDatabase = FirebaseDatabase.getInstance().getReference().child("Inventory");
         requestDatabase = FirebaseDatabase.getInstance().getReference().child("Requests");
         notificationFlag = FirebaseDatabase.getInstance().getReference().child("NotificationFlag");
@@ -55,6 +57,10 @@ public class GameOnDatabase {
 
     public LinkedList<String> getAllRequestsID() {return requestIDList;}
 
+    /*
+     *  This method listens for a new request. It automatically updates the lists of data needed to
+     *  generate the request reports
+     */
     public void setupRequestListener() {
         requestDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +88,10 @@ public class GameOnDatabase {
         });
     }
 
+    /*
+     *  This method listens for any change made to the data to generate checked out information and
+     *  damage report information. Would need to be optimized in the future
+     */
     public void setupEquipmentListner() {
         equipmentDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -129,16 +139,26 @@ public class GameOnDatabase {
         });
     }
 
+    /*
+     *  Push a new request onto the database given all data from the request activity screen
+     */
     public void addToRequestDatabase(String requester, String item, long quantity, String location, String time) {
         EquipmentRequest equipmentRequest = new EquipmentRequest(requester, item, quantity, location, time);
         DatabaseReference requestRef = requestDatabase.push();
         requestRef.setValue(equipmentRequest);
     }
 
+    /*
+     *  Removes a request from the database given its ID
+     */
     public void removeFromRequestDatabase(String idNum) {
         requestDatabase.child(idNum).removeValue();
     }
 
+    /*
+     *  This method checks out equipment from the database by updating the owner and location fields
+     *  of that specific piece of information
+     */
     public int borrowEquipment(String ownerName, String location, String idKey) {
         if (checkItemID(idKey)) {
             DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
@@ -151,24 +171,44 @@ public class GameOnDatabase {
         }
     }
 
+    /*
+     *  This method checks that the ID is a valid ID in the database. Currently there are 1128
+     *  items in the database and may need to change in the future. The unique item IDs
+     *  are SI-1 to SI-1128. Any derivation from those IDs are considered invalid
+     */
     public boolean checkItemID(String idKey) {
         if (idKey.contains("-")) {
+            int last = idKey.lastIndexOf("-");
+            if (last == idKey.length() - 1) {
+                return false;
+            }
             String parts[] = idKey.split("-");
             String s1 = parts[0];
+            if (parts.length != 2) {
+                return false;
+            }
             String s2 = parts[1];
             if (!s1.equals("SI")) {
                 return false;
             }
-            try {
-                int num = Integer.parseInt(s2);
-                if (num < 1 || num > 1128) {
+            if (s2 != null) {
+                try {
+                    if (s2.length() > 18) {
+                        return false;
+                    }
+                    long num = Long.parseLong(s2);
+                    if (num < 1 || num > 1128) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+                catch (NumberFormatException e) {
                     return false;
                 }
-                else {
-                    return true;
-                }
             }
-            catch (NumberFormatException e) {
+            else {
                 return false;
             }
         }
@@ -177,6 +217,9 @@ public class GameOnDatabase {
         }
     }
 
+    /*
+     *  Adds a damage report to a specific piece of equipment
+     */
     public int addDamageReport(String reporter, String idKey, String description) {
         if (checkItemID(idKey)) {
             DatabaseReference item = equipmentDatabase.child(idKey).child("Broken Report");
@@ -191,10 +234,12 @@ public class GameOnDatabase {
         }
     }
 
+    /*
+     *  Checks in a piece of equipment by resetting the location and owner of the equipment
+     */
     public int returnEquipment(String idKey) {
         if (checkItemID(idKey)) {
             DatabaseReference item = equipmentDatabase.child(idKey).child("Item");
-
             item.child("Owner").setValue("");
             item.child("Location").setValue("");
             return 0;
@@ -204,6 +249,10 @@ public class GameOnDatabase {
         }
     }
 
+    /*
+     *  Sets up the notification system that will be called when a request has been added to the database
+     *  so supervisors can immediately fulfil the request.
+     */
     public void setupNotifcation() {
         Log.d(TAG, "Setup notification called");
         // reset chris
@@ -240,7 +289,10 @@ public class GameOnDatabase {
         });
     }
 
-
+    /*
+     *  Sends the notification to the database to alert all of a new pending request. Also gives
+     *  confirmation for a scorekeeper that there request was received and added to the database.
+     */
     public void triggerNotification() {
         Log.d(TAG, "trigger notifcation called");
         notificationFlag.push();

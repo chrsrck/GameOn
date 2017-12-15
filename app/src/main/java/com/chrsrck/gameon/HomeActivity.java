@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/*
+ *  This class handles all functionality of the home screen (after the login screen)
+ *  It is tailored to both scorekeepers and supervisors based on login information
+ */
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button check;
@@ -18,17 +22,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         check = findViewById(R.id.Check);
         request = findViewById(R.id.Request);
         damage = findViewById(R.id.Damage);
         viewrequests = findViewById(R.id.ViewRequest);
         viewreports = findViewById(R.id.ViewReport);
+
         check.setOnClickListener(this);
         request.setOnClickListener(this);
         damage.setOnClickListener(this);
         viewreports.setOnClickListener(this);
         viewrequests.setOnClickListener(this);
 
+        //Sets the visibility of the buttons per user type
         if (MainActivity.username.equals("scorekeeper@vt.edu")) {
             check.setVisibility(View.GONE);
             damage.setVisibility(View.GONE);
@@ -45,6 +52,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
     }
 
+    /*
+     * Handles all onClick events for this activity by starting the appropriate activities
+     */
     @Override
     public void onClick(View view) {
         Intent intent;

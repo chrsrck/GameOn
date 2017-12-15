@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.view.WindowManager;
 
-import com.squareup.picasso.Picasso;
-
+/*
+ *  This activity is the Login activity for our application. It stores the user name and password for the
+ *  user. If you want to login as a scorekeeper, use "scorekeeper@vt.edu" in the email. If you want to login
+ *  as a supervisor, use "supervisor@vt.edu" in the email. If you want all options then login with everything blank.
+ *  A password is not required and is not tested.
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText email;
@@ -30,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pw = findViewById(R.id.pw_field);
         login = findViewById(R.id.login);
         login.setOnClickListener(this);
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         gameOnDatabase = new GameOnDatabase();
         gameOnDatabase.mContext = this;
     }
@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
     }
 
+    /*
+     *  Handles all onClick events for the activity
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == login.getId()) {

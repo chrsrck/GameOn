@@ -16,6 +16,9 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
+/*
+ *  This Activity handles all functionality of the damage report screen
+ */
 public class DamageActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView pic;
@@ -31,6 +34,7 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_damage);
+
         pic = findViewById(R.id.pictureFiles);
         takePic = findViewById(R.id.takePictureButton);
         reporter = findViewById(R.id.inputReporterTextField);
@@ -38,6 +42,7 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
         barCode = findViewById(R.id.scanCode);
         desc = findViewById(R.id.descriptionTextField);
         submit = findViewById(R.id.submitReport);
+
         takePic.setOnClickListener(this);
         barCode.setOnClickListener(this);
         submit.setOnClickListener(this);
@@ -47,26 +52,28 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
         MainActivity.gameOnDatabase.mContext = this;
     }
 
+    /*
+     *  Handles all onClick events for this screen
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == takePic.getId()) {
-            //open camera
-            //update image
+            //Opens the camera for the user to take a picture of the damaged item
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
         }
         else if (view.getId() == barCode.getId()) {
-            //open camera
-            //scan barcode
+            //Opens the barcode reader to scan for the item barcode
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }
         else if (view.getId() == submit.getId()) {
-            //update database
+            //Grab all editText fields
             String name = reporter.getText().toString().trim();
             String idVal = itemId.getText().toString().trim();
             String description = desc.getText().toString().trim();
 
+            //Checks if any of the fields are empty
             if (name.equals("") || idVal.equals("") || description.equals("")) {
                 Toast.makeText(this, "Missing Fields!", Toast.LENGTH_SHORT).show();
             }
@@ -77,6 +84,7 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 else {
                     Toast.makeText(this, "Damage Report Submitted", Toast.LENGTH_SHORT).show();
+                    //Delays moving back to home screen by 2 seconds
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -88,11 +96,17 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
+    /*
+     *  Gets the result from both the barcode reader and camera activity
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Checks for the camera activity result
         if (requestCode == CAMERA_PIC_REQUEST) {
             Bitmap image = (Bitmap) data.getExtras().get("data");
             pic.setImageBitmap(image);
         }
+        //If it got the result and it wasnt for the take picture activity then it was for the barcode activity
         else {
             IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (scanningResult != null) {
@@ -106,6 +120,9 @@ public class DamageActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /*
+     *  Take the user back to the home activity
+     */
     private void goHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

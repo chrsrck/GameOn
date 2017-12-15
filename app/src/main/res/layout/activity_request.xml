@@ -46,14 +46,16 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textColor="#FFFFFF" />
+
                     <EditText
                         android:id="@+id/r_RequesterTextField"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
                         android:layout_marginRight="20dp"
-                        android:background="@android:drawable/editbox_background"/>
+                        android:layout_weight="6"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:singleLine="true" />
                 </TableRow>
 
                 <TableRow>
@@ -88,16 +90,18 @@
                         android:textColor="#FFFFFF"
                         android:layout_marginTop="25dp"
                         android:gravity="center"/>
+
                     <EditText
                         android:id="@+id/r_QuantityTextField"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="25dp"
+                        android:layout_weight="6"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
                         android:inputType="number"
-                        android:background="@android:drawable/editbox_background"/>
+                        android:singleLine="true" />
                 </TableRow>
 
                 <TableRow>
@@ -110,15 +114,17 @@
                         android:textColor="#FFFFFF"
                         android:layout_marginTop="25dp"
                         android:gravity="center" />
+
                     <EditText
                         android:id="@+id/r_LocationTextField"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="25dp"
-                        android:background="@android:drawable/editbox_background"/>
+                        android:layout_weight="6"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:singleLine="true" />
                 </TableRow>
 
             </TableLayout>

@@ -13,6 +13,9 @@ import android.widget.TableLayout.LayoutParams;
 
 import java.util.LinkedList;
 
+/*
+ *  This activity is responsible for populating the list of pending requests.
+ */
 public class ViewRequests extends AppCompatActivity implements View.OnClickListener{
     TextView text;
     TextView[] strings;
@@ -21,7 +24,6 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
     Button[] buttons;
     View[] vs;
     TableLayout layout;
-
     int count;
 
     @Override
@@ -29,12 +31,17 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_requests);
         MainActivity.gameOnDatabase.mContext = this;
+
         text = findViewById(R.id.totalRequest);
         layout = findViewById(R.id.tablelayout);
+
+        //Grab the list of requests and their ids from the database
         LinkedList<EquipmentRequest> requests = MainActivity.gameOnDatabase.getAllRequests();
         LinkedList<String> ids = MainActivity.gameOnDatabase.getAllRequestsID();
         int length = requests.size();
         count = length;
+
+        //Set the amount of pending requests at the top of the view
         text.setText("There are " + length + " pending requests.");
         buttons = new Button[length];
         requestsID = new String[length];
@@ -42,6 +49,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
         strings = new TextView[length*4];
         rows = new TableRow[length*2];
 
+        //Calculate the padding for the views
         int paddingPixel = 10;
         float density = this.getResources().getDisplayMetrics().density;
         int paddingDp = (int)(paddingPixel * density);
@@ -50,6 +58,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
         float density2 = this.getResources().getDisplayMetrics().density;
         int paddingDp2 = (int)(paddingPixel2 * density2);
 
+        //Set the weight of the table rows based on whether the user is a supervisor or not
         float weight;
         if (MainActivity.isSupervisor) {
             weight = 2f;
@@ -59,6 +68,8 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
         }
 
         for (int i = 0; i < length; i++) {
+            //Dynamically build the table rows for the views
+            //The top left cell displays the item name
             TableRow row = new TableRow(this);
             strings[i*4] = new TextView(this);
             strings[i*4].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
@@ -67,6 +78,8 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
             strings[i*4].setTextSize(18);
             strings[i*4].setGravity(Gravity.CENTER);
             strings[i*4].setPadding(0, paddingDp, 0, 0);
+
+            //The top right cell displays the requester
             strings[i*4 + 1] = new TextView(this);
             strings[i*4 + 1].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
             strings[i*4 + 1].setText(requests.get(i).getRequester());
@@ -74,8 +87,11 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
             strings[i*4 + 1].setTextSize(18);
             strings[i*4 + 1].setGravity(Gravity.CENTER);
             strings[i*4 + 1].setPadding(0, paddingDp, 0, 0);
+
             row.addView(strings[i*4]);
             row.addView(strings[i*4 + 1]);
+
+            //The bottom left cell displays the quantity requested
             TableRow row2 = new TableRow(this);
             strings[i*4 + 2] = new TextView(this);
             strings[i*4 + 2].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
@@ -84,6 +100,8 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
             strings[i*4 + 2].setTextSize(18);
             strings[i*4 + 2].setGravity(Gravity.CENTER);
             strings[i*4 + 2].setPadding(0, paddingDp, 0, paddingDp);
+
+            //The bottom right cell displays the location of the requester
             strings[i*4 + 3] = new TextView(this);
             strings[i*4 + 3].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, weight));
             strings[i*4 + 3].setText(requests.get(i).getLocation());
@@ -91,9 +109,11 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
             strings[i*4 + 3].setTextSize(18);
             strings[i*4 + 3].setGravity(Gravity.CENTER);
             strings[i*4 + 3].setPadding(0, paddingDp, 0, paddingDp);
+
             row2.addView(strings[i*4 + 2]);
             row2.addView(strings[i*4 + 3]);
 
+            //If the user is a supervisor we can add a button for them to delete the request when they are fulfilled
             if (MainActivity.isSupervisor) {
                 buttons[i] = new Button(this);
                 buttons[i].setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f));
@@ -124,6 +144,7 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
             layout.addView(row,i*3);
             layout.addView(row2, i*3 + 1);
 
+            //Separator for the requests
             View view = new View(this);
             view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, paddingDp2));
             view.setBackgroundColor(Color.WHITE);
@@ -132,6 +153,10 @@ public class ViewRequests extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /*
+     *  Handles the delete button clicks by finding the id for the requests and removing them from the
+     *  database and the view. Also updates the counter at the top with the total number of requests.
+     */
     @Override
     public void onClick(View view) {
         for (int i = 0; i < buttons.length; i++) {

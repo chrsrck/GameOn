@@ -7,10 +7,9 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by chrsrck on 12/7/17.
+/*
+ *  Handles refreshing the firebase instance ID token
  */
-
 public class GameOnFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Override

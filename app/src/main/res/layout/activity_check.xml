@@ -92,11 +92,12 @@
                         android:id="@+id/inputReporterTextField"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@android:drawable/editbox_background"/>
+                        android:layout_weight="6"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:singleLine="true" />
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -113,12 +114,13 @@
                         android:id="@+id/inputLocation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
-                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
+                        android:layout_marginRight="20dp"
                         android:layout_marginTop="10dp"
-                        android:background="@android:drawable/editbox_background"/>
+                        android:layout_weight="6"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:singleLine="true" />
                 </TableRow>
                 <TableRow>
                     <View
@@ -142,12 +144,13 @@
                         android:id="@+id/inputSerialTextField"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_weight="6"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@android:drawable/editbox_background"/>
+                        android:layout_weight="6"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:singleLine="true" />
                 </TableRow>
             </TableLayout>
 

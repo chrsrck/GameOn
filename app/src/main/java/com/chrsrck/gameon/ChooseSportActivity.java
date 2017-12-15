@@ -8,6 +8,10 @@ import android.content.Intent;
 
 import com.squareup.picasso.Picasso;
 
+/*
+ *  This Activity handles the select sport screen based on the inventory that the intramural sports
+ *  department gave us
+ */
 public class ChooseSportActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton football;
@@ -23,30 +27,40 @@ public class ChooseSportActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sport);
+
+        //All inventory given to us
         football = findViewById(R.id.football);
         soccer = findViewById(R.id.soccer);
         softball = findViewById(R.id.softball);
         frisbee = findViewById(R.id.frisbee);
         kickball = findViewById(R.id.kickball);
         general = findViewById(R.id.general);
+
+        //Load thumbnails from internet so we dont overload memory of phone
         football.setOnClickListener(this);
         Picasso.with(this).load("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/American_football_icon_simple.svg/2000px-American_football_icon_simple.svg.png").into(football);
         football.setVisibility(View.VISIBLE);
+
         soccer.setOnClickListener(this);
         Picasso.with(this).load("https://rocketdock.com/images/screenshots/soccer.png").into(soccer);
         soccer.setVisibility(View.VISIBLE);
+
         softball.setOnClickListener(this);
         Picasso.with(this).load("https://bloximages.chicago2.vip.townnews.com/jacksonvilleprogress.com/content/tncms/assets/v3/editorial/6/ef/6ef01ef8-cd9e-11e4-93ef-bb88ff3f27e8/5509c742b2da6.image.png").into(softball);
         softball.setVisibility(View.VISIBLE);
+
         kickball.setOnClickListener(this);
         Picasso.with(this).load("http://pack7.com/wp-content/uploads/2017/07/Kickball.png").into(kickball);
         kickball.setVisibility(View.VISIBLE);
+
         frisbee.setOnClickListener(this);
         Picasso.with(this).load("http://www.drllz.com/wp-content/uploads/2017/02/BallIcon_UltimateB.png").into(frisbee);
         frisbee.setVisibility(View.VISIBLE);
+
         general.setOnClickListener(this);
         Picasso.with(this).load("https://university.ffspro.com/media/1213/installation-safety-icon.png").into(general);
         general.setVisibility(View.VISIBLE);
+
         MainActivity.gameOnDatabase.mContext = this;
     }
 
@@ -55,6 +69,9 @@ public class ChooseSportActivity extends AppCompatActivity implements View.OnCli
         super.onStart();
     }
 
+    /*
+     *  Handles all onClick events for the activity by building the options for the selected sport
+     */
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, RequestActivity.class);

@@ -1,15 +1,11 @@
 package com.chrsrck.gameon;
 
-/**
- * Created by chrsrck on 12/8/17.
+/*
+ *  Represents how equipment data is stored in the google firebase
  */
-
 public class Equipment {
-
-//    private String sport;
-//    private String name;
     /*
-    Stuff needed for Equipment Damage Report
+     * Stuff needed for Equipment Damage Report
      */
     private long idNum;
     private String itemName;
@@ -20,13 +16,8 @@ public class Equipment {
     private String description;
     private long idNumReport;
 
-
-
     public Equipment() {
-//        idNum = -1;
-//        reporter = "None";
-//        description = "None";
-//        isBroken = false;
+
     }
 
     public Equipment(long idNum, String itemName, String location, String owner,
@@ -46,69 +37,23 @@ public class Equipment {
         return idNum;
     }
 
-    public void setIdNum(int idNum) {
-        this.idNum = idNum;
-    }
-
     public String getReporter() {
         return reporter;
-    }
-
-    public void setReporter(String reporter) {
-        this.reporter = reporter;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
     public String getItemName() {
         return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getOwner() {
         return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public void setIdNum(long idNum) {
-        this.idNum = idNum;
-    }
-
-    public long getIdNumReport() {
-        return idNumReport;
-    }
-
-    public void setIdNumReport(long idNumReport) {
-        this.idNumReport = idNumReport;
-    }
-
-    /*
-            Used for when a piece of equipment is fixed
-             */
-    public void resetEquipment() {
-        reporter = "";
-        description = "";
-        location = "";
     }
 }
