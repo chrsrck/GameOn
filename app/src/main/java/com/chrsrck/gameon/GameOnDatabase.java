@@ -269,7 +269,7 @@ public class GameOnDatabase {
                             (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
                                     .setSmallIcon(R.mipmap.logo)
                                     .setContentTitle("Game On!")
-                                    .setContentText("You've received a new notification")
+                                    .setContentText("You've received a new equipment request!")
                                     .setContentIntent(viewPendingIntent)
                                     .setVibrate(new long[]{1000, 1000});
 
